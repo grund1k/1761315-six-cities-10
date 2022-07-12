@@ -4,10 +4,8 @@ type AppProps = {
   rentalOffersCount: number;
 }
 
-function App({rentalOffersCount}: AppProps): JSX.Element {
-  return (
-    <Main rentalOffersCount={rentalOffersCount}/>
-  );
-}
+const App = ({rentalOffersCount}: AppProps): JSX.Element => (
+  <Main rentalOffersCount={rentalOffersCount}/>
+);
 
 export default App;
