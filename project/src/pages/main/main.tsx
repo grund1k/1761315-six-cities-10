@@ -1,10 +1,10 @@
 import PlaceCard from '../../components/place-card/place-card';
 
-type MainpProps = {
+type MainProps = {
   rentalOffersCount: number;
 }
 
-const Main = ({rentalOffersCount}: MainpProps): JSX.Element =>(
+const Main = ({rentalOffersCount}: MainProps): JSX.Element =>(
   <div className="page page--gray page--main">
     <header className="header">
       <div className="container">
@@ -111,3 +111,5 @@ const Main = ({rentalOffersCount}: MainpProps): JSX.Element =>(
 );
 
 export default Main;
+export type {MainProps};
+
