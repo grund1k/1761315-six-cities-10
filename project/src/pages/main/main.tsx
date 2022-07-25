@@ -1,5 +1,5 @@
-import PlaceCard from '../../components/place-card/place-card';
 import {Offers} from '../../types/offer';
+import OfferList from './../../components/offer-list/offer-list';
 
 type MainProps = {
   rentalOffersCount: number;
@@ -96,7 +96,7 @@ const Main = ({rentalOffersCount, offers}: MainProps): JSX.Element =>(
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {offers.map((offer)=> <PlaceCard key={offer.id} offer={offer} />)}
+              <OfferList offers={offers}/>
             </div>
           </section>
           <div className="cities__right-section">
