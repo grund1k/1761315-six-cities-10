@@ -19,7 +19,7 @@ export type Offer = {
   previewImage: string;
   images: string[];
   title: string;
-  isFavourite: boolean;
+  isFavorite: boolean;
   isPremium: boolean;
   rating: number;
   type: string;
@@ -32,3 +32,5 @@ export type Offer = {
   location: Location;
   id: number;
 }
+
+export type Offers = Offer[];

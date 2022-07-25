@@ -133,7 +133,7 @@ export const offers = [
     ],
     title: 'Nice, cozy, warm big bed apartment',
     isFavorite: false,
-    isPremium: false,
+    isPremium: true,
     rating: 3,
     type: 'house',
     bedrooms: 4,
@@ -190,7 +190,7 @@ export const offers = [
       'https://10.react.pages.academy/static/hotel/7.jpg'
     ],
     title: 'Loft Studio in the Central Area',
-    isFavorite: false,
+    isFavorite: true,
     isPremium: false,
     rating: 3.7,
     type: 'house',

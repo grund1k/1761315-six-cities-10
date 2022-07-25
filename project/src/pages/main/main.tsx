@@ -1,10 +1,12 @@
 import PlaceCard from '../../components/place-card/place-card';
+import {Offers} from '../../types/offer';
 
 type MainProps = {
   rentalOffersCount: number;
+  offers: Offers;
 }
 
-const Main = ({rentalOffersCount}: MainProps): JSX.Element =>(
+const Main = ({rentalOffersCount, offers}: MainProps): JSX.Element =>(
   <div className="page page--gray page--main">
     <header className="header">
       <div className="container">
@@ -94,11 +96,7 @@ const Main = ({rentalOffersCount}: MainProps): JSX.Element =>(
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
+              {offers.map((offer)=> <PlaceCard key={offer.id} offer={offer} />)}
             </div>
           </section>
           <div className="cities__right-section">
