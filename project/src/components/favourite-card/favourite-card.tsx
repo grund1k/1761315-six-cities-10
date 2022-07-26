@@ -1,12 +1,11 @@
 import {Offer} from '../../types/offer';
 
-type PlaceCardProps = {
-  offer : Offer;
-  onMouseOver: (offer: Offer) => void;
+type FavoriteCardProp = {
+  offer: Offer;
 }
 
-const PlaceCard = ({offer, onMouseOver} : PlaceCardProps) :JSX.Element => (
-  <article className="cities__card place-card" onMouseOver={() => onMouseOver(offer)}>
+const FavouriteCard = ({offer}:FavoriteCardProp) :JSX.Element => (
+  <article className="cities__card place-card">
     {offer.isPremium ?
       <div className="place-card__mark">
         <span>Premium</span>
@@ -43,4 +42,4 @@ const PlaceCard = ({offer, onMouseOver} : PlaceCardProps) :JSX.Element => (
   </article>
 );
 
-export default PlaceCard;
+export default FavouriteCard;

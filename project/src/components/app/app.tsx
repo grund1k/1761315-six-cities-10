@@ -18,7 +18,7 @@ const App = ({rentalOffersCount, offers}: AppScreenProps): JSX.Element => (
     <Routes>
       <Route path={AppRoute.Main} element={<Main rentalOffersCount={rentalOffersCount} offers={offers}/>} />
       <Route path={AppRoute.Login} element={<Login />} />
-      <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={AuthStatus.NoAuth}><Favorites /></PrivateRoute>} />
+      <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={AuthStatus.Auth}><Favorites offers={offers} /></PrivateRoute>} />
       <Route path={AppRoute.Room} element={<Propety />} />
       <Route path="*" element={<Error404 />} />
     </Routes>
