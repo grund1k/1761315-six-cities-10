@@ -1,4 +1,6 @@
 import {Offer} from '../../types/offer';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 type FavoriteCardProp = {
   offer: Offer;
@@ -35,7 +37,7 @@ const FavouriteCard = ({offer}:FavoriteCardProp) :JSX.Element => (
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#">{offer.title}</a>
+        <Link to={`${AppRoute.Room}/${offer.id}`}>{offer.title}</Link>
       </h2>
       <p className="place-card__type">{offer.type}</p>
     </div>
