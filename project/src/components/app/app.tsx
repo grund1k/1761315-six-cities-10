@@ -8,12 +8,12 @@ import Error404 from '../../pages/error404/error404';
 import PrivateRoute from '../private-router/private-route';
 import {Offers} from '../../types/offer';
 
-type AppScreenProps = {
+type Props = {
   rentalOffersCount: number;
   offers: Offers;
 }
 
-const App = ({rentalOffersCount, offers}: AppScreenProps): JSX.Element => (
+const App = ({rentalOffersCount, offers}: Props): JSX.Element => (
   <BrowserRouter>
     <Routes>
       <Route path={AppRoute.Main} element={<Main rentalOffersCount={rentalOffersCount} offers={offers}/>} />
