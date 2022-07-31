@@ -1,5 +1,6 @@
 import {Offers} from '../../types/offer';
 import OfferList from './../../components/offer-list/offer-list';
+import Map from './../../components/map/map';
 
 type MainProps = {
   rentalOffersCount: number;
@@ -100,7 +101,7 @@ const Main = ({rentalOffersCount, offers}: MainProps): JSX.Element =>(
             </div>
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <Map city={offers[0].city} offers={offers}/>
           </div>
         </div>
       </div>

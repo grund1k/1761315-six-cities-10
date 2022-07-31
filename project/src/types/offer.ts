@@ -11,11 +11,13 @@ type Host = {
   avatarUrl: string;
 }
 
+export type City = {
+  name: string;
+  location: Location;
+}
+
 export type Offer = {
-  city: {
-    name: string;
-    location: Location;
-  };
+  city: City;
   previewImage: string;
   images: string[];
   title: string;
