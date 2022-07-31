@@ -100,7 +100,7 @@ const Main = ({rentalOffersCount, offers}: MainProps): JSX.Element =>(
             <OfferList offers={offers} listType={PlaceType.Cities}/>
           </section>
           <div className="cities__right-section">
-            <Map city={offers[0].city} offers={offers}/>
+            <Map city={offers[0].city} offers={offers} elementClass={'cities__map'}/>
           </div>
         </div>
       </div>

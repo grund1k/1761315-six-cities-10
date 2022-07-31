@@ -4,6 +4,7 @@ import { AppRoute, PlaceType} from '../../const';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/reviews-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
+import Map from '../../components/map/map';
 import { Reviews } from '../../types/reviews';
 
 type PropetyTypes = {
@@ -146,7 +147,7 @@ const Propety = ({offers, reviews} : PropetyTypes): JSX.Element => {
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <Map city={offers[0].city} offers={offers.slice(0,3)} elementClass={'property__map'}/>
         </section>
         <div className="container">
           <section className="near-places places">
