@@ -5,15 +5,16 @@ import {Offer} from '../../types/offer';
 type PlaceCardProps = {
   offer : Offer;
   onMouseOver: (offer: Offer) => void;
+  listType: string;
 }
 
-const PlaceCard = ({offer, onMouseOver} : PlaceCardProps) :JSX.Element => (
-  <article className="cities__card place-card" onMouseOver={() => onMouseOver(offer)}>
+const PlaceCard = ({offer, onMouseOver, listType} : PlaceCardProps) :JSX.Element => (
+  <article className={`${listType}__card place-card`} onMouseOver={() => onMouseOver(offer)}>
     {offer.isPremium ?
       <div className="place-card__mark">
         <span>Premium</span>
       </div> : null}
-    <div className="cities__image-wrapper place-card__image-wrapper">
+    <div className={`${listType}__image-wrapper place-card__image-wrapper`}>
       <a href="#">
         <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt={offer.title} />
       </a>

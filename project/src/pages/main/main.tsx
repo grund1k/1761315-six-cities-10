@@ -1,6 +1,7 @@
 import {Offers} from '../../types/offer';
 import OfferList from './../../components/offer-list/offer-list';
 import Map from './../../components/map/map';
+import {PlaceType} from '../../const';
 
 type MainProps = {
   rentalOffersCount: number;
@@ -96,9 +97,7 @@ const Main = ({rentalOffersCount, offers}: MainProps): JSX.Element =>(
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              <OfferList offers={offers}/>
-            </div>
+            <OfferList offers={offers} listType={PlaceType.Cities}/>
           </section>
           <div className="cities__right-section">
             <Map city={offers[0].city} offers={offers}/>
