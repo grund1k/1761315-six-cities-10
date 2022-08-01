@@ -13,3 +13,17 @@ export enum AuthStatus {
 }
 
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
+
+export enum PlaceType {
+  Cities = 'cities',
+  NearPlaces = 'near-places',
+}
+
+type ClassesList = {
+  [key: string]: string;
+}
+
+export const PLACES_LIST_CLASSES: ClassesList = {
+  'cities': 'cities__places-list tabs__content',
+  'near-places': 'near-places__list',
+};
