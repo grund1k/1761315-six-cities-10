@@ -22,7 +22,7 @@ const App = ({rentalOffersCount, offers, reviews}: Props): JSX.Element => (
       <Route path={AppRoute.Login} element={<Login />} />
       <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={AuthStatus.Auth}><Favorites offers={offers} /></PrivateRoute>} />
       <Route path={`${AppRoute.Room}/:id`} element={<Property offers={offers} reviews={reviews}/>} />
-      <Route path="*" element={<Error404 />} />
+      <Route path='*' element={<Error404 />} />
     </Routes>
   </BrowserRouter>
 );
