@@ -1,4 +1,4 @@
-import {Icon, Marker} from 'leaflet';
+import leaflet, {Icon, Marker} from 'leaflet';
 import { useRef, useEffect } from 'react';
 import {City, Offer, Offers} from '../../types/offer';
 import useMap from './../../hooks/useMap/useMap';
@@ -27,23 +27,35 @@ const activeCustomIcon = new Icon({
 const Map = ({city, offers, elementClass, activeOffer} : MapProps) : JSX.Element => {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const { latitude, longitude, zoom } = city.location;
 
   useEffect(() => {
     if (map) {
-      offers.forEach((offer) => {
+
+      map.setView({ lat: latitude, lng: longitude }, zoom, { animate: true, duration: 1 });
+
+      const markers = offers.map((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
-          lng: offer.location.longitude
+          lng: offer.location.longitude,
         });
-
         marker.setIcon(
           activeOffer !== null && offer.id === activeOffer.id
             ? activeCustomIcon
-            : defaultCustomIcon)
-          .addTo(map);
+            : defaultCustomIcon);
+
+        return marker;
       });
+
+      const layerGroup = leaflet.layerGroup(markers);
+
+      map.addLayer(layerGroup);
+
+      return () => {
+        map.removeLayer(layerGroup);
+      };
     }
-  }, [map, offers, activeOffer]);
+  }, [latitude, longitude, map, offers, zoom]);
 
   return(
     <section className={`${elementClass} map`} ref={mapRef}>

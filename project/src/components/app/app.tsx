@@ -1,5 +1,5 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import {AppRoute, AuthStatus} from '../../const';
+import {AppRoute, AuthStatus, Cities} from '../../const';
 import Login from '../../pages/login/login';
 import Main from '../../pages/main/main';
 import Favorites from './../../pages/favorites/favorites';
@@ -12,7 +12,7 @@ import { Offers } from '../../types/offer';
 type Props = {
   offers: Offers;
   reviews: Reviews;
-  cities: string[];
+  cities: Cities;
 }
 
 const App = ({offers, reviews, cities}: Props): JSX.Element => (

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import OfferList from './../../components/offer-list/offer-list';
 import Map from './../../components/map/map';
-import {PlaceType, SORT_OPTIONS} from '../../const';
+import {PlaceType, SORT_OPTIONS, Cities} from '../../const';
 import CitiesList from './../../components/cities-list/cities-list';
 import { useAppSelector } from './../../hooks/index';
 import Sort from './../../components/sort/sort';
@@ -9,7 +9,7 @@ import { sortOffers } from './../../utils';
 import {Offer} from '../../types/offer';
 
 type Props = {
-  cities: string[];
+  cities: Cities;
 }
 
 const Main = ({cities}: Props): JSX.Element => {
