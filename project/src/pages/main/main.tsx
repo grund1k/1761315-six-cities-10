@@ -1,11 +1,11 @@
 import OfferList from './../../components/offer-list/offer-list';
 import Map from './../../components/map/map';
-import {PlaceType} from '../../const';
+import {PlaceType, Cities} from '../../const';
 import CitiesList from './../../components/cities-list/cities-list';
 import { useAppSelector } from './../../hooks/index';
 
 type Props = {
-  cities: string[];
+  cities: Cities;
 }
 
 const Main = ({cities}: Props): JSX.Element => {

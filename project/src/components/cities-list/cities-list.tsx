@@ -1,9 +1,10 @@
 
 import { useAppDispatch, useAppSelector } from './../../hooks/index';
 import { changeCity } from './../../store/action';
+import {Cities} from '../../const';
 
 type Props = {
-  cities: string[];
+  cities: Cities;
 }
 
 const CitiesList = ({cities}: Props): JSX.Element => {
