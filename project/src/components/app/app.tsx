@@ -13,12 +13,13 @@ type Props = {
   rentalOffersCount: number;
   offers: Offers;
   reviews: Reviews;
+  cities: string[];
 }
 
-const App = ({rentalOffersCount, offers, reviews}: Props): JSX.Element => (
+const App = ({rentalOffersCount, offers, reviews, cities}: Props): JSX.Element => (
   <BrowserRouter>
     <Routes>
-      <Route path={AppRoute.Main} element={<Main rentalOffersCount={rentalOffersCount} offers={offers}/>} />
+      <Route path={AppRoute.Main} element={<Main rentalOffersCount={rentalOffersCount} offers={offers} cities={cities}/>} />
       <Route path={AppRoute.Login} element={<Login />} />
       <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={AuthStatus.Auth}><Favorites offers={offers} /></PrivateRoute>} />
       <Route path={`${AppRoute.Room}/:id`} element={<Property offers={offers} reviews={reviews}/>} />

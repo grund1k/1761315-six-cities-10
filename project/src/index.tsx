@@ -5,6 +5,7 @@ import App from './components/app/app';
 import { offers } from './mocks/offers';
 import { reviews } from './mocks/reviews';
 import { store } from './store';
+import { cities } from './const';
 
 const tempData = {
   rentalOffersCount: 312,
@@ -17,7 +18,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App rentalOffersCount={tempData.rentalOffersCount} offers={offers} reviews={reviews}/>
+      <App rentalOffersCount={tempData.rentalOffersCount} offers={offers} reviews={reviews} cities={cities}/>
     </Provider>
   </React.StrictMode>,
 );

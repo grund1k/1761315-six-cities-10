@@ -2,13 +2,15 @@ import {Offers} from '../../types/offer';
 import OfferList from './../../components/offer-list/offer-list';
 import Map from './../../components/map/map';
 import {PlaceType} from '../../const';
+import CitiesList from './../../components/cities-list/cities-list';
 
-type MainProps = {
+type Props = {
   rentalOffersCount: number;
   offers: Offers;
+  cities: string[];
 }
 
-const Main = ({rentalOffersCount, offers}: MainProps): JSX.Element =>(
+const Main = ({rentalOffersCount, offers, cities}: Props): JSX.Element =>(
   <div className="page page--gray page--main">
     <header className="header">
       <div className="container">
@@ -43,38 +45,7 @@ const Main = ({rentalOffersCount, offers}: MainProps): JSX.Element =>(
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
-          </ul>
+          <CitiesList cities={cities}/>
         </section>
       </div>
       <div className="cities">
@@ -109,5 +80,3 @@ const Main = ({rentalOffersCount, offers}: MainProps): JSX.Element =>(
 );
 
 export default Main;
-export type {MainProps};
-
