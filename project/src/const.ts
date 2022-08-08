@@ -30,7 +30,7 @@ export const PLACES_LIST_CLASSES: ClassesList = {
 
 export const DEFAULT_CITY_NAME = 'Paris';
 
-export const cities = [
+export const CITIES = [
   'Paris',
   'Cologne',
   'Brussels',
