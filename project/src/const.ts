@@ -38,3 +38,11 @@ export const CITIES = [
   'Hamburg',
   'Dusseldorf'
 ];
+
+export const SORT_OPTIONS = {
+  Popular: 'Popular',
+  PriceUp: 'Price: low to high',
+  PriceDown: 'Price: high to low',
+  TopRated: 'Top rated first',
+};
+
