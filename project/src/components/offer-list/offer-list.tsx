@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {Offer, Offers} from '../../types/offer';
 import PlaceCard from './../place-card/place-card';
 import { PLACES_LIST_CLASSES } from '../../const';
@@ -6,10 +5,10 @@ import { PLACES_LIST_CLASSES } from '../../const';
 type OfferListProps = {
   offers: Offers;
   listType: string;
+  setActiveOffer: React.Dispatch<React.SetStateAction<Offer | null>>
 }
 
-const OfferList = ({offers, listType} : OfferListProps) => {
-  const [, setActiveOffer] = useState<null | Offer>(null);
+const OfferList = ({offers, listType, setActiveOffer} : OfferListProps) => {
 
   const onMouseOver = (offer : Offer) => setActiveOffer(offer);
 

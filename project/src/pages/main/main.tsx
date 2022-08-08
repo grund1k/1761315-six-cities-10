@@ -6,6 +6,7 @@ import CitiesList from './../../components/cities-list/cities-list';
 import { useAppSelector } from './../../hooks/index';
 import Sort from './../../components/sort/sort';
 import { sortOffers } from './../../utils';
+import {Offer} from '../../types/offer';
 
 type Props = {
   cities: string[];
@@ -15,6 +16,8 @@ const Main = ({cities}: Props): JSX.Element => {
   const {offers, city} = useAppSelector((state) => state);
   const currentOffers = offers.filter((offer) => offer.city.name === city);
   const [sortingOption, setSortingOption] = useState(SORT_OPTIONS.Popular);
+
+  const [activeOffer, setActiveOffer] = useState<null | Offer>(null);
 
   const sortedOffers = sortOffers(currentOffers, sortingOption);
   const handleSortingOptionChoose = (option: string) => setSortingOption(option);
@@ -64,10 +67,10 @@ const Main = ({cities}: Props): JSX.Element => {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{currentOffers.length} places to stay in {city}</b>
                 <Sort sortingOption={sortingOption} onOptionChange={handleSortingOptionChoose}/>
-                <OfferList offers={sortedOffers} listType={PlaceType.Cities}/>
+                <OfferList setActiveOffer={setActiveOffer} offers={sortedOffers} listType={PlaceType.Cities}/>
               </section>
               <div className="cities__right-section">
-                <Map city={currentOffers[0].city} offers={currentOffers} elementClass={'cities__map'}/>
+                <Map city={currentOffers[0].city} offers={currentOffers} activeOffer={activeOffer} elementClass={'cities__map'}/>
               </div>
             </div>
           </div> : null}

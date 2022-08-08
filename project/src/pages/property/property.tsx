@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { Offers } from '../../types/offer';
+import { Offers, Offer } from '../../types/offer';
 import { AppRoute, PlaceType} from '../../const';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/reviews-list/review-list';
@@ -14,6 +15,7 @@ type PropetyTypes = {
 
 const Propety = ({offers, reviews} : PropetyTypes): JSX.Element => {
   const { id } = useParams();
+  const [activeOffer, setActiveOffer] = useState<null | Offer>(null);
 
   const currentRoom = offers.find((offer) => offer.id === Number(id));
 
@@ -26,6 +28,7 @@ const Propety = ({offers, reviews} : PropetyTypes): JSX.Element => {
     const rest = roomType.slice(1);
     return `${firstLetter}${rest}`;
   };
+
 
   return (
     <div className="page">
@@ -147,12 +150,12 @@ const Propety = ({offers, reviews} : PropetyTypes): JSX.Element => {
               </section>
             </div>
           </div>
-          <Map city={offers[0].city} offers={offers.slice(0,3)} elementClass={'property__map'}/>
+          <Map city={offers[0].city} offers={offers.slice(0,3)} activeOffer={activeOffer} elementClass={'property__map'}/>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OfferList offers={offers.slice(0,3)} listType={PlaceType.NearPlaces} />
+            <OfferList setActiveOffer={setActiveOffer} offers={offers.slice(0,3)} listType={PlaceType.NearPlaces} />
           </section>
         </div>
       </main>
