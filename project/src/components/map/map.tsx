@@ -40,7 +40,7 @@ const Map = ({city, offers, elementClass, activeOffer} : MapProps) : JSX.Element
           lng: offer.location.longitude,
         });
         marker.setIcon(
-          activeOffer !== null && offer.id === activeOffer.id
+          offer.id === activeOffer?.id
             ? activeCustomIcon
             : defaultCustomIcon);
 

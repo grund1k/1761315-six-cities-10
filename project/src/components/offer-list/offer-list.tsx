@@ -5,7 +5,7 @@ import { PLACES_LIST_CLASSES } from '../../const';
 type OfferListProps = {
   offers: Offers;
   listType: string;
-  setActiveOffer: React.Dispatch<React.SetStateAction<Offer | null>>
+  setActiveOffer: (offer : Offer) => void;
 }
 
 const OfferList = ({offers, listType, setActiveOffer} : OfferListProps) => {
