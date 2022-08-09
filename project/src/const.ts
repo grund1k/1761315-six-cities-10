@@ -13,6 +13,7 @@ export enum AuthStatus {
 }
 
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
+export const URL_MARKER_ACTIVE = 'img/pin-active.svg';
 
 export enum PlaceType {
   Cities = 'cities',
@@ -40,3 +41,13 @@ export const cities = [
 ] as const;
 
 export type Cities = typeof cities;
+
+export const SORT_OPTIONS = {
+  Popular: 'Popular',
+  PriceUp: 'Price: low to high',
+  PriceDown: 'Price: high to low',
+  TopRated: 'Top rated first',
+};
+
+export const sortOptions = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'] as const;
+export type sortOptionsUnion = typeof sortOptions[number];
