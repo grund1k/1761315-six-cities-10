@@ -48,3 +48,6 @@ export const SORT_OPTIONS = {
   PriceDown: 'Price: high to low',
   TopRated: 'Top rated first',
 };
+
+export const sortOptions = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'] as const;
+export type sortOptionsUnion = typeof sortOptions[number];

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import OfferList from './../../components/offer-list/offer-list';
 import Map from './../../components/map/map';
-import {PlaceType, SORT_OPTIONS, Cities} from '../../const';
+import {PlaceType, Cities, sortOptionsUnion} from '../../const';
 import CitiesList from './../../components/cities-list/cities-list';
 import { useAppSelector } from './../../hooks/index';
 import Sort from './../../components/sort/sort';
-import { sortOffers } from './../../utils';
+import { SortOffer } from './../../utils';
 import {Offer} from '../../types/offer';
 
 type Props = {
@@ -15,12 +15,11 @@ type Props = {
 const Main = ({cities}: Props): JSX.Element => {
   const {offers, city} = useAppSelector((state) => state);
   const currentOffers = offers.filter((offer) => offer.city.name === city);
-  const [sortingOption, setSortingOption] = useState(SORT_OPTIONS.Popular);
+  const [sortingOption, setSortingOption] = useState<sortOptionsUnion>(SortOffer.Popular);
 
   const [activeOffer, setActiveOffer] = useState<null | Offer>(null);
 
-  const sortedOffers = sortOffers(currentOffers, sortingOption);
-  const handleSortingOptionChoose = (option: string) => setSortingOption(option);
+  const sortedOffers = SortOffer.sortList(sortingOption, currentOffers);
 
   return(
     <div className="page page--gray page--main">
@@ -66,7 +65,7 @@ const Main = ({cities}: Props): JSX.Element => {
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{currentOffers.length} places to stay in {city}</b>
-                <Sort sortingOption={sortingOption} onOptionChange={handleSortingOptionChoose}/>
+                <Sort sortingOption={sortingOption} onOptionChange={setSortingOption}/>
                 <OfferList setActiveOffer={setActiveOffer} offers={sortedOffers} listType={PlaceType.Cities}/>
               </section>
               <div className="cities__right-section">

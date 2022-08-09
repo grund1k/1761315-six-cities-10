@@ -1,23 +1,39 @@
 import { Offer, Offers } from './types/offer';
-import { SORT_OPTIONS } from './const';
+import { sortOptions, sortOptionsUnion } from './const';
 
-const sortByPriceDown = (offerA: Offer, offerB: Offer) => offerB.price - offerA.price;
+export class SortOffer {
+  static options = sortOptions;
 
-const sortByPriceUp = (offerA: Offer, offerB: Offer) => offerA.price - offerB.price;
+  static Popular = sortOptions[0];
+  static PriceUp = sortOptions[1];
+  static PriceDown = sortOptions[2];
+  static TopRated = sortOptions[3];
+  static defaultValue = SortOffer.Popular;
 
-const sortByRating = (offerA: Offer, offerB: Offer) => offerB.rating - offerA.rating;
-
-export const sortOffers = (offers: Offers, currentSortOption: string | undefined) => {
-  switch(currentSortOption) {
-    case SORT_OPTIONS.Popular:
-      return offers;
-    case SORT_OPTIONS.PriceDown:
-      return [...offers].sort(sortByPriceDown);
-    case SORT_OPTIONS.PriceUp:
-      return [...offers].sort(sortByPriceUp);
-    case SORT_OPTIONS.TopRated:
-      return [...offers].sort(sortByRating);
-    default:
-      return offers;
+  static sortByPriceDown(offerA: Offer, offerB: Offer) {
+    return offerB.price - offerA.price;
   }
-};
+
+  static sortByPriceUp(offerA: Offer, offerB: Offer) {
+    return offerA.price - offerB.price;
+  }
+
+  static sortBuyRating(offerA: Offer, offerB: Offer) {
+    return offerB.rating - offerA.rating;
+  }
+
+  static sortList(key: sortOptionsUnion, offers: Offers): Offers {
+    switch(key) {
+      case SortOffer.Popular :
+        return offers;
+      case SortOffer.PriceDown :
+        return [...offers].sort(SortOffer.sortByPriceDown);
+      case SortOffer.PriceUp :
+        return [...offers].sort(SortOffer.sortByPriceUp);
+      case SortOffer.TopRated :
+        return [...offers].sort(SortOffer.sortBuyRating);
+      default :
+        return offers;
+    }
+  }
+}

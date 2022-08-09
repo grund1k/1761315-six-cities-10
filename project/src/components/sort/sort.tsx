@@ -1,14 +1,14 @@
-import { SORT_OPTIONS } from '../../const';
 import { useState } from 'react';
+import { SortOffer } from '../../utils';
+import {sortOptionsUnion} from '../../const';
 
 type Props = {
   sortingOption: string;
-  onOptionChange: (option: string) => void;
+  onOptionChange: (option: sortOptionsUnion) => void;
 }
 
 const Sort = ({sortingOption, onOptionChange} : Props): JSX.Element => {
   const [optionsState, setOptionsState] = useState(false);
-  const options = Object.values(SORT_OPTIONS);
 
   return(
     <form className="places__sorting" action="#" method="get">
@@ -20,7 +20,7 @@ const Sort = ({sortingOption, onOptionChange} : Props): JSX.Element => {
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${optionsState ? 'places__options--opened' : ''}`}>
-        {options.map((option) => (
+        {SortOffer.options.map((option) => (
           <li key={option}
             className={`places__option ${sortingOption === option ? 'places__option--active' : ''}`}
             tabIndex={0}
