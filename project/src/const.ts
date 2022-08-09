@@ -27,3 +27,16 @@ export const PLACES_LIST_CLASSES: ClassesList = {
   'cities': 'cities__places-list tabs__content',
   'near-places': 'near-places__list',
 };
+
+export const DEFAULT_CITY_NAME = 'Paris';
+
+export const cities = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf'
+] as const;
+
+export type Cities = typeof cities;
