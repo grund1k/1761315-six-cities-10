@@ -1,11 +1,16 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DEFAULT_CITY_NAME } from '../const';
-import { offers } from './../mocks/offers';
+import { Offers } from '../types/offer';
 import { changeCity, loadOffers } from './action';
 
-const initialState = {
+type initialStateType = {
+  city: string,
+  offers: Offers
+}
+
+const initialState: initialStateType = {
   city: DEFAULT_CITY_NAME,
-  offers: offers,
+  offers: [],
 };
 
 
