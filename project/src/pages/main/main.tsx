@@ -7,13 +7,14 @@ import { useAppSelector } from './../../hooks/index';
 import Sort from './../../components/sort/sort';
 import { SortOffer } from './../../utils';
 import {Offer} from '../../types/offer';
+import LoadSpinner from '../../components/load-spinner/load-spinner';
 
 type Props = {
   cities: Cities;
 }
 
 const Main = ({cities}: Props): JSX.Element => {
-  const {offers, city} = useAppSelector((state) => state);
+  const {offers, city, isOffersLoaded} = useAppSelector((state) => state);
   const currentOffers = offers.filter((offer) => offer.city.name === city);
   const [sortingOption, setSortingOption] = useState<sortOptionsUnion>(SortOffer.Popular);
 
@@ -59,7 +60,7 @@ const Main = ({cities}: Props): JSX.Element => {
             <CitiesList cities={cities}/>
           </section>
         </div>
-        {currentOffers.length > 0 ?
+        {isOffersLoaded ?
           <div className="cities">
             <div className="cities__places-container container">
               <section className="cities__places places">
@@ -72,7 +73,7 @@ const Main = ({cities}: Props): JSX.Element => {
                 <Map city={currentOffers[0].city} offers={currentOffers} activeOffer={activeOffer} elementClass={'cities__map'}/>
               </div>
             </div>
-          </div> : null}
+          </div> : <LoadSpinner />}
       </main>
     </div>
   );

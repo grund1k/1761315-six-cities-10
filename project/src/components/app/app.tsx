@@ -15,7 +15,7 @@ type Props = {
 }
 
 const App = ({reviews, cities}: Props): JSX.Element => {
-  const {offers} = useAppSelector((state) => state);
+  const {offers} = useAppSelector((state) => state); // Пока остается временно для Property
   return(
     <BrowserRouter>
       <Routes>
