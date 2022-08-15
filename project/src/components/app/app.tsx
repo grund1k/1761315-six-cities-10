@@ -15,13 +15,13 @@ type Props = {
 }
 
 const App = ({reviews, cities}: Props): JSX.Element => {
-  const {offers} = useAppSelector((state) => state); // Пока остается временно для Property
+  const {authorizationStatus, offers} = useAppSelector((state) => state); // Пока остается временно для Property
   return(
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main} element={<Main cities={cities}/>} />
         <Route path={AppRoute.Login} element={<Login />} />
-        <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={AuthStatus.Auth}><Favorites offers={offers} /></PrivateRoute>} />
+        <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={authorizationStatus}><Favorites offers={offers} /></PrivateRoute>} />
         <Route path={`${AppRoute.Room}/:id`} element={<Property offers={offers} reviews={reviews}/>} />
         <Route path='*' element={<Error404 />} />
       </Routes>

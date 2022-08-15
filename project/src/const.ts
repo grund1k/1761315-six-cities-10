@@ -54,6 +54,8 @@ export type sortOptionsUnion = typeof sortOptions[number];
 
 export enum APIRoute {
   Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
 }
 
 export const TIMEOUT_SHOW_ERROR = 2000;
