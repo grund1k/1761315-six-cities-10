@@ -1,5 +1,5 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import {AppRoute, AuthStatus, Cities} from '../../const';
+import {AppRoute, Cities} from '../../const';
 import Login from '../../pages/login/login';
 import Main from '../../pages/main/main';
 import Favorites from './../../pages/favorites/favorites';
