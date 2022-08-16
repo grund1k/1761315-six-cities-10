@@ -51,3 +51,9 @@ export const SORT_OPTIONS = {
 
 export const sortOptions = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'] as const;
 export type sortOptionsUnion = typeof sortOptions[number];
+
+export enum APIRoute {
+  Offers = '/hotels',
+}
+
+export const TIMEOUT_SHOW_ERROR = 2000;
