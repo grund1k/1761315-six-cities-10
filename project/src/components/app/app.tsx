@@ -1,5 +1,5 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import {AppRoute, AuthStatus, Cities} from '../../const';
+import {Route, Routes} from 'react-router-dom';
+import {AppRoute, Cities} from '../../const';
 import Login from '../../pages/login/login';
 import Main from '../../pages/main/main';
 import Favorites from './../../pages/favorites/favorites';
@@ -8,6 +8,8 @@ import Error404 from '../../pages/error404/error404';
 import PrivateRoute from '../private-router/private-route';
 import { Reviews } from '../../types/reviews';
 import { useAppSelector } from '../../hooks';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 type Props = {
   reviews: Reviews;
@@ -15,17 +17,17 @@ type Props = {
 }
 
 const App = ({reviews, cities}: Props): JSX.Element => {
-  const {offers} = useAppSelector((state) => state); // Пока остается временно для Property
+  const {authorizationStatus, offers} = useAppSelector((state) => state); // Пока остается временно для Property
   return(
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Main} element={<Main cities={cities}/>} />
         <Route path={AppRoute.Login} element={<Login />} />
-        <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={AuthStatus.Auth}><Favorites offers={offers} /></PrivateRoute>} />
+        <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={authorizationStatus}><Favorites offers={offers} /></PrivateRoute>} />
         <Route path={`${AppRoute.Room}/:id`} element={<Property offers={offers} reviews={reviews}/>} />
         <Route path='*' element={<Error404 />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 };
 
