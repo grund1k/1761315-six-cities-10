@@ -1,8 +1,8 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/store';
-import { Offers } from '../types/offer';
-import { setLoadOffersStatus, setError, loadOffers, requireAuthorization,redirectToRoute } from './action';
+import { Offer, Offers } from '../types/offer';
+import { setLoadOffersStatus, setError, loadOffers, requireAuthorization,redirectToRoute, loadOffer } from './action';
 import { APIRoute, AppRoute, AuthStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import { store } from '.';
 import { AuthData } from '../types/auth-data';
@@ -38,6 +38,26 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
     }
   }
 );
+
+export const fetchOfferAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'loadOffer',
+  async (id, {dispatch, extra: api}) => {
+    dispatch(setLoadOffersStatus(false));
+
+    try {
+      const {data} = await api.get<Offer>(`${APIRoute.Offers}/${id}`);
+      dispatch(loadOffer(data));
+      dispatch(setLoadOffersStatus(true));
+    } catch {
+      dispatch(redirectToRoute(AppRoute.Error404));
+    }
+  },
+);
+
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
