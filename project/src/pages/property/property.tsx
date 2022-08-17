@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Offers, Offer } from '../../types/offer';
-import { AppRoute, PlaceType} from '../../const';
+import {PlaceType} from '../../const';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/reviews-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
@@ -11,7 +11,7 @@ import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
 import { useAppSelector } from '../../hooks';
 import { useAppDispatch } from './../../hooks/index';
-import { fetchOfferAction } from '../../store/api-actions';
+import { fetchNearbyOffers, fetchOfferAction } from '../../store/api-actions';
 import LoadSpinner from '../../components/load-spinner/load-spinner';
 
 type PropetyTypes = {
@@ -22,12 +22,13 @@ type PropetyTypes = {
 const Propety = ({offers, reviews} : PropetyTypes): JSX.Element => {
   const { id } = useParams();
   const currentId = Number(id);
-  const {offer, isOffersLoaded} = useAppSelector((state) => state);
+  const {offer, isOffersLoaded, nearbyOffers} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   const [activeOffer, setActiveOffer] = useState<null | Offer>(null);
 
   useEffect(() => {
     dispatch(fetchOfferAction(currentId));
+    dispatch(fetchNearbyOffers(currentId));
   }, [currentId, dispatch]);
 
   const offerType = (roomType: string): string => {
@@ -134,12 +135,18 @@ const Propety = ({offers, reviews} : PropetyTypes): JSX.Element => {
                   </section>
                 </div>
               </div>
-              {/* <Map city={offers[0].city} offers={offers.slice(0,3)} activeOffer={activeOffer} elementClass={'property__map'}/> */}
+              {nearbyOffers.length !== 0 ?
+                <Map city={nearbyOffers[0].city} offers={nearbyOffers} activeOffer={activeOffer} elementClass={'property__map'}/>
+                :
+                <LoadSpinner />}
             </section>
             <div className="container">
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
-                {/* <OfferList setActiveOffer={setActiveOffer} offers={offers.slice(0,3)} listType={PlaceType.NearPlaces} /> */}
+                {nearbyOffers.length !== 0 ?
+                  <OfferList setActiveOffer={setActiveOffer} offers={nearbyOffers} listType={PlaceType.NearPlaces} />
+                  :
+                  <LoadSpinner />}
               </section>
             </div>
           </>

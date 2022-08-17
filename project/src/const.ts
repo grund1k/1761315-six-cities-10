@@ -56,6 +56,7 @@ export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  Nearby = '/nearby',
 }
 
 export const TIMEOUT_SHOW_ERROR = 2000;

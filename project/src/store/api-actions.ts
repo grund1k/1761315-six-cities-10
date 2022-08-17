@@ -2,12 +2,13 @@ import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/store';
 import { Offer, Offers } from '../types/offer';
-import { setLoadOffersStatus, setError, loadOffers, requireAuthorization,redirectToRoute, loadOffer } from './action';
+import { setLoadOffersStatus, setError, loadOffers, requireAuthorization,redirectToRoute, loadOffer, loadNearbyOffers } from './action';
 import { APIRoute, AppRoute, AuthStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import { store } from '.';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
+import { processErrorHandle } from '../services/process-error-handle';
 
 export const clearErrorAction = createAsyncThunk(
   'clearError',
@@ -58,6 +59,21 @@ export const fetchOfferAction = createAsyncThunk<void, number, {
   },
 );
 
+export const fetchNearbyOffers = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'loadNearbyOffer',
+  async (id, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<Offer>(`${APIRoute.Offers}/${id}${APIRoute.Nearby}`);
+      dispatch(loadNearbyOffers(data));
+    } catch {
+      processErrorHandle('Данные с ближайшими местами не загрузились');
+    }
+  },
+);
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
