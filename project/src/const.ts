@@ -3,6 +3,7 @@ export enum AppRoute {
   Login = '/login',
   Favorites = '/favorites',
   Room = '/offer',
+  Logout = '/logout',
   Error404 = '*',
 }
 
@@ -61,3 +62,10 @@ export enum APIRoute {
 }
 
 export const TIMEOUT_SHOW_ERROR = 2000;
+
+export const patternErrors = ['Проверьте корректность введенного адреса электронной почты'] as const;
+export type PatternErrorsUnion = typeof patternErrors;
+
+export class PatternErrors {
+  static EmailError = patternErrors[0];
+}

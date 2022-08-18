@@ -7,7 +7,7 @@ import { APIRoute, AppRoute, AuthStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import { store } from '.';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
-import { dropToken, saveToken } from '../services/token';
+import { Token } from '../services/token';
 import { processErrorHandle } from '../services/process-error-handle';
 import { ReviewFormData } from '../types/review/review-form-data';
 import { ReviewData } from '../types/review/review-data';
@@ -131,7 +131,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   'user/login',
   async ({login: email, password}, {dispatch, extra: api}) => {
     const {data: { token }} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(token);
+    Token.saveToken(token);
     dispatch(requireAuthorization(AuthStatus.Auth));
     dispatch(redirectToRoute(AppRoute.Main));
   },
@@ -145,7 +145,8 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   'user/logout',
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
-    dropToken();
+    Token.dropToken();
     dispatch(requireAuthorization(AuthStatus.NoAuth));
+    dispatch(redirectToRoute(AppRoute.Main));
   },
 );

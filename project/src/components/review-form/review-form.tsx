@@ -3,6 +3,7 @@ import { APIRoute } from '../../const';
 import { BACKEND_URL } from '../../services/api';
 import { postReviewAction } from '../../store/api-actions';
 import { useAppDispatch } from './../../hooks/index';
+import { setFormError } from '../../utils';
 
 type Props = {
   id: number;
@@ -17,6 +18,7 @@ const ReviewForm = ({id}: Props): JSX.Element => {
 
   const handelReviewForm = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
+    setFormError(evt.target);
     setComment({...comment, [name]: value});
   };
 
@@ -30,7 +32,7 @@ const ReviewForm = ({id}: Props): JSX.Element => {
     <form className="reviews__form form" action={`${BACKEND_URL}${APIRoute.Comments}/${id}`} method="post" onSubmit={handelReviewSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" onChange={handelReviewForm}/>
+        <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" required onChange={handelReviewForm}/>
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
           <svg className="form__star-image" width="37" height="33">
             <use xlinkHref="#icon-star"></use>
@@ -65,7 +67,7 @@ const ReviewForm = ({id}: Props): JSX.Element => {
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="comment" placeholder="Tell how was your stay, what you like and what can be improved" onChange={handelReviewForm}></textarea>
+      <textarea className="reviews__textarea form__textarea" id="review" name="comment" placeholder="Tell how was your stay, what you like and what can be improved" minLength={50} onChange={handelReviewForm}></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.

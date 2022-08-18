@@ -2,26 +2,28 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import Header from '../../components/header/header';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
+import { setFormError } from '../../utils';
 import { useAppDispatch } from './../../hooks/index';
+import { PatternErrors } from './../../const';
 
 const Login = (): JSX.Element => {
   const [authData, setAuthData] = useState<AuthData>({ login: '', password: '' });
 
   const dispatch = useAppDispatch();
 
-  const handleLoginChange = (evt: ChangeEvent<HTMLInputElement>): void => {
-    setAuthData({ ...authData, login: evt.target.value });
+  const handleLoginChange = (evt: ChangeEvent<HTMLInputElement>) => {
+    setFormError(evt.target, PatternErrors.EmailError);
+    setAuthData({ ...authData, login: evt.target.value});
   };
 
-  const handlePasswordChange = (evt: ChangeEvent<HTMLInputElement>): void => {
+  const handlePasswordChange = (evt: ChangeEvent<HTMLInputElement>)=> {
+    setFormError(evt.target);
     setAuthData({ ...authData, password: evt.target.value });
   };
 
-  const handleLoginSubmit = (evt: FormEvent<HTMLFormElement>): void => {
+  const handleLoginSubmit = (evt: FormEvent<HTMLFormElement>)=> {
     evt.preventDefault();
-    if (authData.login.match(/^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim) && authData.password !== '') {
-      dispatch(loginAction(authData));
-    }
+    dispatch(loginAction(authData));
   };
 
   return(
@@ -35,7 +37,7 @@ const Login = (): JSX.Element => {
             <form className="login__form form" action="#" method="post" onSubmit={handleLoginSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" onChange={handleLoginChange} required />
+                <input className="login__input form__input" type="email" name="email" placeholder="Email" pattern='^[^ ]+@[^ ]+\.[a-z]{2,6}$' onChange={handleLoginChange} required />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
