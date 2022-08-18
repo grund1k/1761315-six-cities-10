@@ -6,7 +6,7 @@ import Favorites from './../../pages/favorites/favorites';
 import Property from '../../pages/property/property';
 import Error404 from '../../pages/error404/error404';
 import PrivateRoute from '../private-router/private-route';
-import { Reviews } from '../../types/reviews';
+import { Reviews } from '../../types/review/reviews';
 import { useAppSelector } from '../../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';

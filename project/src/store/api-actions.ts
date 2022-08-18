@@ -9,6 +9,8 @@ import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 import { dropToken, saveToken } from '../services/token';
 import { processErrorHandle } from '../services/process-error-handle';
+import { ReviewFormData } from '../types/review/review-form-data';
+import { ReviewData } from '../types/review/review-data';
 
 export const clearErrorAction = createAsyncThunk(
   'clearError',
@@ -107,6 +109,19 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
     }
   },
 );
+
+export const postReviewAction = createAsyncThunk<void, ReviewData, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'postReview',
+  async ({id, comment: {comment, rating}}, {dispatch, extra: api}) => {
+    await api.post<ReviewFormData>(`${APIRoute.Comments}/${id}`, {rating, comment});
+    dispatch(fetchReviewsAction(id));
+  },
+);
+
 
 export const loginAction = createAsyncThunk<void, AuthData, {
   dispatch: AppDispatch,

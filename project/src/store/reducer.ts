@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { DEFAULT_CITY_NAME, AuthStatus} from '../const';
 import { Offer, Offers } from '../types/offer';
-import { Reviews } from '../types/reviews';
+import { Reviews } from '../types/review/reviews';
 import { changeCity, loadOffers, setLoadOffersStatus, setError, requireAuthorization, loadOffer, loadNearbyOffers, loadReviews } from './action';
 
 type initialStateType = {

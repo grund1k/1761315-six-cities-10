@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Offer } from '../../types/offer';
-import {PlaceType} from '../../const';
+import {AuthStatus, PlaceType} from '../../const';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/reviews-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
@@ -17,7 +17,7 @@ const Propety = (): JSX.Element => {
   const { id } = useParams();
   const currentId = Number(id);
   const [activeOffer, setActiveOffer] = useState<null | Offer>(null);
-  const {offer, isOffersLoaded, nearbyOffers, reviews} = useAppSelector((state) => state);
+  const {offer, isOffersLoaded, nearbyOffers, reviews, authorizationStatus} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -129,7 +129,10 @@ const Propety = (): JSX.Element => {
                       <ReviewList reviews={reviews}/>
                       :
                       <LoadSpinner />}
-                    <ReviewForm />
+                    {authorizationStatus === AuthStatus.Auth ?
+                      <ReviewForm id={currentId}/>
+                      :
+                      null}
                   </section>
                 </div>
               </div>

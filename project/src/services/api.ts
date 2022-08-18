@@ -3,7 +3,7 @@ import {StatusCodes} from 'http-status-codes';
 import {processErrorHandle} from './process-error-handle';
 import { getToken } from './token';
 
-const BACKEND_URL = 'https://10.react.pages.academy/six-cities';
+export const BACKEND_URL = 'https://10.react.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
 const StatusCodeMapping: Record<number, boolean> = {
