@@ -1,34 +1,29 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Offers, Offer } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import {PlaceType} from '../../const';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/reviews-list/review-list';
 import OfferList from '../../components/offer-list/offer-list';
 import Map from '../../components/map/map';
-import { Reviews } from '../../types/reviews';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
 import { useAppSelector } from '../../hooks';
 import { useAppDispatch } from './../../hooks/index';
-import { fetchNearbyOffers, fetchOfferAction } from '../../store/api-actions';
+import { fetchNearbyOffers, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import LoadSpinner from '../../components/load-spinner/load-spinner';
 
-type PropetyTypes = {
-  offers: Offers;
-  reviews: Reviews;
-}
-
-const Propety = ({offers, reviews} : PropetyTypes): JSX.Element => {
+const Propety = (): JSX.Element => {
   const { id } = useParams();
   const currentId = Number(id);
-  const {offer, isOffersLoaded, nearbyOffers} = useAppSelector((state) => state);
-  const dispatch = useAppDispatch();
   const [activeOffer, setActiveOffer] = useState<null | Offer>(null);
+  const {offer, isOffersLoaded, nearbyOffers, reviews} = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchOfferAction(currentId));
     dispatch(fetchNearbyOffers(currentId));
+    dispatch(fetchReviewsAction(currentId));
   }, [currentId, dispatch]);
 
   const offerType = (roomType: string): string => {
@@ -130,7 +125,10 @@ const Propety = ({offers, reviews} : PropetyTypes): JSX.Element => {
                   </div>
                   <section className="property__reviews reviews">
                     <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                    <ReviewList reviews={reviews}/>
+                    {reviews.length !== 0 ?
+                      <ReviewList reviews={reviews}/>
+                      :
+                      <LoadSpinner />}
                     <ReviewForm />
                   </section>
                 </div>

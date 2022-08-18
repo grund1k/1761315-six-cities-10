@@ -2,7 +2,7 @@ import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/store';
 import { Offer, Offers } from '../types/offer';
-import { setLoadOffersStatus, setError, loadOffers, requireAuthorization,redirectToRoute, loadOffer, loadNearbyOffers } from './action';
+import { setLoadOffersStatus, setError, loadOffers, requireAuthorization, redirectToRoute, loadOffer, loadNearbyOffers, loadReviews } from './action';
 import { APIRoute, AppRoute, AuthStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import { store } from '.';
 import { AuthData } from '../types/auth-data';
@@ -74,6 +74,23 @@ export const fetchNearbyOffers = createAsyncThunk<void, number, {
     }
   },
 );
+
+export const fetchReviewsAction = createAsyncThunk<void, number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'loadReviews',
+  async (id, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<Offer>(`${APIRoute.Comments}/${id}`);
+      dispatch(loadReviews(data));
+    } catch {
+      processErrorHandle('Комментарии не загрузились');
+    }
+  },
+);
+
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
