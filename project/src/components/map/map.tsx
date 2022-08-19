@@ -55,7 +55,7 @@ const Map = ({city, offers, elementClass, activeOffer} : MapProps) : JSX.Element
         map.removeLayer(layerGroup);
       };
     }
-  }, [latitude, longitude, map, offers, zoom]);
+  }, [activeOffer?.id, latitude, longitude, map, offers, zoom]);
 
   return(
     <section className={`${elementClass} map`} ref={mapRef}>

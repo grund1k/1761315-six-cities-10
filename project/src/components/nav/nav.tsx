@@ -1,19 +1,9 @@
-import { SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { useAppDispatch } from './../../hooks/index';
-import { logoutAction } from './../../store/api-actions';
 
 const Nav = ():JSX.Element => {
   const { authorizationStatus } = useAppSelector((state) => state);
-
-  const dispatch = useAppDispatch();
-
-  const handleLogOutAction = (evt: SyntheticEvent) => {
-    evt.preventDefault();
-    dispatch(logoutAction());
-  };
 
   return(
     <nav className="header__nav">
@@ -29,7 +19,7 @@ const Nav = ():JSX.Element => {
               </Link>
             </li>
             <li className="header__nav-item">
-              <Link className="header__nav-link" to={AppRoute.Main} onClick={handleLogOutAction}>
+              <Link className="header__nav-link" to={AppRoute.Logout}>
                 <span className="header__signout">Sign out</span>
               </Link>
             </li>

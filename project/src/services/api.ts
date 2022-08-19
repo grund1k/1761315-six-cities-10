@@ -1,9 +1,9 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 import {StatusCodes} from 'http-status-codes';
 import {processErrorHandle} from './process-error-handle';
-import { getToken } from './token';
+import { Token } from './token';
 
-const BACKEND_URL = 'https://10.react.pages.academy/six-cities';
+export const BACKEND_URL = 'https://10.react.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
 const StatusCodeMapping: Record<number, boolean> = {
@@ -21,7 +21,7 @@ export const createAPI = (): AxiosInstance => {
   });
 
   api.interceptors.request.use((config: AxiosRequestConfig) => {
-    const token = getToken();
+    const token = Token.getToken();
 
     if (token) {
       config.headers['x-token'] = token;
