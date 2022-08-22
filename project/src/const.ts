@@ -69,3 +69,5 @@ export type PatternErrorsUnion = typeof patternErrors;
 export class PatternErrors {
   static EmailError = patternErrors[0];
 }
+
+export const STAR_WIDTH = 20;

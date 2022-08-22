@@ -1,28 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Offer } from '../../types/offer';
-import {AuthStatus, PlaceType} from '../../const';
+import {AuthStatus} from '../../const';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/reviews-list/review-list';
-import OfferList from '../../components/offer-list/offer-list';
-import Map from '../../components/map/map';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
 import { useAppSelector } from '../../hooks';
 import { useAppDispatch } from './../../hooks/index';
-import { fetchNearbyOffers, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
+import { fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import LoadSpinner from '../../components/load-spinner/load-spinner';
+import { OfferElement } from '../../utils';
+import NearbyContent from '../../components/nearby-content/nearby-content';
 
 const Propety = (): JSX.Element => {
   const { id } = useParams();
   const currentId = Number(id);
-  const [activeOffer, setActiveOffer] = useState<null | Offer>(null);
-  const {offer, isOffersLoaded, nearbyOffers, reviews, authorizationStatus} = useAppSelector((state) => state);
+  const {offer, isOffersLoaded, reviews, authorizationStatus} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchOfferAction(currentId));
-    dispatch(fetchNearbyOffers(currentId));
     dispatch(fetchReviewsAction(currentId));
   }, [currentId, dispatch]);
 
@@ -55,10 +52,7 @@ const Propety = (): JSX.Element => {
               <div className="property__container container">
                 <div className="property__wrapper">
                   <div className="property__mark">
-                    {offer.isPremium ?
-                      <div className="place-card__mark">
-                        <span>Premium</span>
-                      </div> : null}
+                    {OfferElement.isPremium(offer, 'property')}
                   </div>
                   <div className="property__name-wrapper">
                     <h1 className="property__name">
@@ -73,7 +67,7 @@ const Propety = (): JSX.Element => {
                   </div>
                   <div className="property__rating rating">
                     <div className="property__stars rating__stars">
-                      <span style={{width: '80%'}}></span>
+                      <span style={{width: OfferElement.setRatingWidth(offer)}}></span>
                       <span className="visually-hidden">Rating</span>
                     </div>
                     <span className="property__rating-value rating__value">{offer.rating}</span>
@@ -136,20 +130,8 @@ const Propety = (): JSX.Element => {
                   </section>
                 </div>
               </div>
-              {nearbyOffers.length !== 0 ?
-                <Map city={nearbyOffers[0].city} offers={nearbyOffers} activeOffer={activeOffer} elementClass={'property__map'}/>
-                :
-                <LoadSpinner />}
             </section>
-            <div className="container">
-              <section className="near-places places">
-                <h2 className="near-places__title">Other places in the neighbourhood</h2>
-                {nearbyOffers.length !== 0 ?
-                  <OfferList setActiveOffer={setActiveOffer} offers={nearbyOffers} listType={PlaceType.NearPlaces} />
-                  :
-                  <LoadSpinner />}
-              </section>
-            </div>
+            <NearbyContent currentId={currentId} />
           </>
           :
           <div className="container">

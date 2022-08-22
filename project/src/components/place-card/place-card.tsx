@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {Offer} from '../../types/offer';
+import { OfferElement } from '../../utils';
 
 type PlaceCardProps = {
   offer : Offer;
@@ -10,10 +11,7 @@ type PlaceCardProps = {
 
 const PlaceCard = ({offer, onMouseOver, listType} : PlaceCardProps) :JSX.Element => (
   <article className={`${listType}__card place-card`} onMouseOver={() => onMouseOver(offer)}>
-    {offer.isPremium ?
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div> : null}
+    {OfferElement.isPremium(offer, 'place-card')}
     <div className={`${listType}__image-wrapper place-card__image-wrapper`}>
       <a href="#">
         <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt={offer.title} />
@@ -34,7 +32,7 @@ const PlaceCard = ({offer, onMouseOver, listType} : PlaceCardProps) :JSX.Element
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{width: '80%'}}></span>
+          <span style={{width: OfferElement.setRatingWidth(offer)}}></span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>

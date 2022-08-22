@@ -1,5 +1,5 @@
 import { Offer, Offers } from './types/offer';
-import { sortOptions, sortOptionsUnion } from './const';
+import { sortOptions, sortOptionsUnion, STAR_WIDTH } from './const';
 
 export class SortOffer {
   static options = sortOptions;
@@ -77,3 +77,16 @@ export const setFormError = (node: HTMLInputElement | HTMLTextAreaElement, patte
   node.reportValidity();
   return node;
 };
+
+export class OfferElement {
+  static isPremium(offer: Offer, place: string) {
+    return offer.isPremium
+      ? <div className={`${place}__mark`}><span>Premium</span></div>
+      : null;
+  }
+
+  static setRatingWidth(offer: Offer) {
+    return `${STAR_WIDTH * Math.round(offer.rating)}%`;
+  }
+}
+
