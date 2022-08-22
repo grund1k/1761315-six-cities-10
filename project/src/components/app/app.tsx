@@ -10,13 +10,17 @@ import { useAppSelector } from '../../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import Logout from '../logout/logout';
+import { getAuthStatus } from './../../store/user-process/selector';
+import { getMainData } from './../../store/data/selector';
 
 type Props = {
   cities: Cities;
 }
 
 const App = ({ cities}: Props): JSX.Element => {
-  const {authorizationStatus, offers} = useAppSelector((state) => state); // Пока остается временно для Property
+  const authorizationStatus = useAppSelector(getAuthStatus);
+  const offers = useAppSelector(getMainData); // Пока остается временно для Favourite
+
   return(
     <HistoryRouter history={browserHistory}>
       <Routes>

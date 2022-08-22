@@ -6,6 +6,7 @@ import Map from '../../components/map/map';
 import LoadSpinner from '../load-spinner/load-spinner';
 import OfferList from '../offer-list/offer-list';
 import { PlaceType } from '../../const';
+import { getNearbyOffers } from '../../store/property-data/selector';
 
 type Props = {
   currentId: number;
@@ -13,7 +14,7 @@ type Props = {
 
 const NearbyContent = ({currentId} : Props): JSX.Element => {
   const [activeOffer, setActiveOffer] = useState<null | Offer>(null);
-  const {nearbyOffers} = useAppSelector((state) => state);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

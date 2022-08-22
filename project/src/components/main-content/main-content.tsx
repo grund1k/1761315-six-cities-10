@@ -7,9 +7,13 @@ import LoadSpinner from '../load-spinner/load-spinner';
 import OfferList from '../offer-list/offer-list';
 import Sort from '../sort/sort';
 import Map from './../../components/map/map';
+import { getCity } from './../../store/city/selector';
+import { getMainData, getOffersLoadingStatus } from './../../store/data/selector';
 
 const MainContent = (): JSX.Element => {
-  const {offers, city, isOffersLoaded} = useAppSelector((state) => state);
+  const city = useAppSelector(getCity);
+  const offers = useAppSelector(getMainData);
+  const isOffersLoaded = useAppSelector(getOffersLoadingStatus);
   const currentOffers = offers.filter((offer) => offer.city.name === city);
   const [sortingOption, setSortingOption] = useState<sortOptionsUnion>(SortOffer.Popular);
 

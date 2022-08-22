@@ -11,11 +11,18 @@ import { fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import LoadSpinner from '../../components/load-spinner/load-spinner';
 import { OfferElement } from '../../utils';
 import NearbyContent from '../../components/nearby-content/nearby-content';
+import { getOffer, getOfferLoadingStatus, getReviews, getReviewsStatus } from './../../store/property-data/selector';
+import { getAuthStatus } from './../../store/user-process/selector';
 
 const Propety = (): JSX.Element => {
   const { id } = useParams();
   const currentId = Number(id);
-  const {offer, isOffersLoaded, reviews, authorizationStatus} = useAppSelector((state) => state);
+  const offer = useAppSelector(getOffer);
+  const isOfferLoaded = useAppSelector(getOfferLoadingStatus);
+  const authorizationStatus = useAppSelector(getAuthStatus);
+  const reviews = useAppSelector(getReviews);
+  const isReviewsLoaded = useAppSelector(getReviewsStatus);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -37,7 +44,7 @@ const Propety = (): JSX.Element => {
       </Header>
 
       <main className="page__main page__main--property">
-        {offer && isOffersLoaded ?
+        {offer && isOfferLoaded ?
           <>
             <section className="property">
               <div className="property__gallery-container container">
@@ -119,7 +126,7 @@ const Propety = (): JSX.Element => {
                   </div>
                   <section className="property__reviews reviews">
                     <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                    {reviews.length !== 0 ?
+                    {reviews.length !== 0 && isReviewsLoaded ?
                       <ReviewList reviews={reviews}/>
                       :
                       <LoadSpinner />}

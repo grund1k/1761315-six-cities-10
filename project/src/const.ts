@@ -61,8 +61,6 @@ export enum APIRoute {
   Comments = '/comments'
 }
 
-export const TIMEOUT_SHOW_ERROR = 2000;
-
 export const patternErrors = ['Проверьте корректность введенного адреса электронной почты'] as const;
 export type PatternErrorsUnion = typeof patternErrors;
 
@@ -71,3 +69,10 @@ export class PatternErrors {
 }
 
 export const STAR_WIDTH = 20;
+
+export enum NameSpace {
+  User = 'User',
+  MainData = 'MainData',
+  PropertyData = 'PropertyData',
+  City = 'City',
+}
