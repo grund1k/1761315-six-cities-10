@@ -9,6 +9,7 @@ import Sort from '../sort/sort';
 import Map from './../../components/map/map';
 import { getCity } from './../../store/city/selector';
 import { getMainData, getOffersLoadingStatus } from './../../store/data/selector';
+import MainEmpty from './../main-empty/main-empty';
 
 const MainContent = (): JSX.Element => {
   const city = useAppSelector(getCity);
@@ -21,8 +22,12 @@ const MainContent = (): JSX.Element => {
 
   const sortedOffers = SortOffer.sortList(sortingOption, currentOffers);
 
+  if (isOffersLoaded && !currentOffers.length) {
+    return(<MainEmpty />);
+  }
+
   return(
-    isOffersLoaded ?
+    (isOffersLoaded && currentOffers.length) ?
       <div className="cities">
         <div className="cities__places-container container">
           <section className="cities__places places">
