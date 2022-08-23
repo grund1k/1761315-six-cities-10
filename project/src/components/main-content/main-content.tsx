@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { PlaceType, sortOptionsUnion } from '../../const';
 import { Offer } from '../../types/offer';
 import { SortOffer } from '../../utils';
@@ -13,12 +13,12 @@ const MainContent = (): JSX.Element => {
   const city = useGetCity();
   const offers = useGetMainData();
   const isOffersLoaded = useGetOffersLoadingStatus();
-  const currentOffers = offers.filter((offer) => offer.city.name === city);
+  const currentOffers = useMemo(() => offers.filter((offer) => offer.city.name === city), [city, offers]);
   const [sortingOption, setSortingOption] = useState<sortOptionsUnion>(SortOffer.Popular);
 
   const [activeOffer, setActiveOffer] = useState<null | Offer>(null);
 
-  const sortedOffers = SortOffer.sortList(sortingOption, currentOffers);
+  const sortedOffers = useMemo(() => SortOffer.sortList(sortingOption, currentOffers), [currentOffers, sortingOption]);
 
   return(
     isOffersLoaded ?
