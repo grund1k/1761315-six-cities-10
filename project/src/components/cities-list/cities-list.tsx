@@ -1,7 +1,7 @@
 
-import { useAppDispatch, useAppSelector } from './../../hooks/index';
+import { useAppDispatch} from './../../hooks/index';
 import {Cities} from '../../const';
-import { getCity } from '../../store/city/selector';
+import { useGetCity } from '../../store/city/selector';
 import { changeCity } from '../../store/city/city-process';
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 }
 
 const CitiesList = ({cities}: Props): JSX.Element => {
-  const selectedCity = useAppSelector(getCity);
+  const selectedCity = useGetCity();
   const dispatch = useAppDispatch();
 
   const handleSelectCity = (name: string) => {

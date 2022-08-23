@@ -5,23 +5,22 @@ import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/reviews-list/review-list';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
-import { useAppSelector } from '../../hooks';
 import { useAppDispatch } from './../../hooks/index';
 import { fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import LoadSpinner from '../../components/load-spinner/load-spinner';
 import { OfferElement } from '../../utils';
 import NearbyContent from '../../components/nearby-content/nearby-content';
-import { getOffer, getOfferLoadingStatus, getReviews, getReviewsStatus } from './../../store/property-data/selector';
-import { getAuthStatus } from './../../store/user-process/selector';
+import { useGetOffer, useGetOfferLoadingStatus, useGetReviews, useGetReviewsStatus } from './../../store/property-data/selector';
+import { useGetAuthStatus } from './../../store/user-process/selector';
 
 const Propety = (): JSX.Element => {
   const { id } = useParams();
   const currentId = Number(id);
-  const offer = useAppSelector(getOffer);
-  const isOfferLoaded = useAppSelector(getOfferLoadingStatus);
-  const authorizationStatus = useAppSelector(getAuthStatus);
-  const reviews = useAppSelector(getReviews);
-  const isReviewsLoaded = useAppSelector(getReviewsStatus);
+  const offer = useGetOffer();
+  const isOfferLoaded = useGetOfferLoadingStatus();
+  const authorizationStatus = useGetAuthStatus();
+  const reviews = useGetReviews();
+  const isReviewsLoaded = useGetReviewsStatus();
 
   const dispatch = useAppDispatch();
 
