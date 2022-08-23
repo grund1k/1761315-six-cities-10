@@ -7,7 +7,7 @@ const Logout = (): JSX.Element => {
 
   useEffect(() =>{
     dispatch(logoutAction());
-  });
+  }, [dispatch]);
 
   return(
     <div>You successfully logout</div>
