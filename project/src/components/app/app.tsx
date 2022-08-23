@@ -6,20 +6,19 @@ import Favorites from './../../pages/favorites/favorites';
 import Property from '../../pages/property/property';
 import Error404 from '../../pages/error404/error404';
 import PrivateRoute from '../../components/private-router/private-route';
-import { useAppSelector } from '../../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import Logout from '../logout/logout';
-import { getAuthStatus } from './../../store/user-process/selector';
-import { getMainData } from './../../store/data/selector';
+import { useGetAuthStatus } from './../../store/user-process/selector';
+import { useGetMainData } from './../../store/data/selector';
 
 type Props = {
   cities: Cities;
 }
 
 const App = ({ cities}: Props): JSX.Element => {
-  const authorizationStatus = useAppSelector(getAuthStatus);
-  const offers = useAppSelector(getMainData); // Пока остается временно для Favourite
+  const authorizationStatus = useGetAuthStatus();
+  const offers = useGetMainData(); // Пока остается временно для Favourite
 
   return(
     <HistoryRouter history={browserHistory}>

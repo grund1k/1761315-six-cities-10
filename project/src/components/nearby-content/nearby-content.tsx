@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 import { fetchNearbyOffers } from '../../store/api-actions';
 import { Offer } from '../../types/offer';
 import Map from '../../components/map/map';
 import LoadSpinner from '../load-spinner/load-spinner';
 import OfferList from '../offer-list/offer-list';
 import { PlaceType } from '../../const';
-import { getNearbyOffers } from '../../store/property-data/selector';
+import { useGetNearbyOffers } from '../../store/property-data/selector';
 
 type Props = {
   currentId: number;
@@ -14,7 +14,7 @@ type Props = {
 
 const NearbyContent = ({currentId} : Props): JSX.Element => {
   const [activeOffer, setActiveOffer] = useState<null | Offer>(null);
-  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const nearbyOffers = useGetNearbyOffers();
   const dispatch = useAppDispatch();
 
   useEffect(() => {

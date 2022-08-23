@@ -1,26 +1,25 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { PlaceType, sortOptionsUnion } from '../../const';
-import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
 import { SortOffer } from '../../utils';
 import LoadSpinner from '../load-spinner/load-spinner';
 import OfferList from '../offer-list/offer-list';
 import Sort from '../sort/sort';
 import Map from './../../components/map/map';
-import { getCity } from './../../store/city/selector';
-import { getMainData, getOffersLoadingStatus } from './../../store/data/selector';
 import MainEmpty from './../main-empty/main-empty';
+import { useGetCity } from './../../store/city/selector';
+import { useGetMainData, useGetOffersLoadingStatus } from './../../store/data/selector';
 
 const MainContent = (): JSX.Element => {
-  const city = useAppSelector(getCity);
-  const offers = useAppSelector(getMainData);
-  const isOffersLoaded = useAppSelector(getOffersLoadingStatus);
-  const currentOffers = offers.filter((offer) => offer.city.name === city);
+  const city = useGetCity();
+  const offers = useGetMainData();
+  const isOffersLoaded = useGetOffersLoadingStatus();
+  const currentOffers = useMemo(() => offers.filter((offer) => offer.city.name === city), [city, offers]);
   const [sortingOption, setSortingOption] = useState<sortOptionsUnion>(SortOffer.Popular);
 
   const [activeOffer, setActiveOffer] = useState<null | Offer>(null);
 
-  const sortedOffers = SortOffer.sortList(sortingOption, currentOffers);
+  const sortedOffers = useMemo(() => SortOffer.sortList(sortingOption, currentOffers), [currentOffers, sortingOption]);
 
   if (isOffersLoaded && !currentOffers.length) {
     return(<MainEmpty />);
