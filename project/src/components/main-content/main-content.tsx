@@ -13,12 +13,14 @@ const MainContent = (): JSX.Element => {
   const city = useGetCity();
   const offers = useGetMainData();
   const isOffersLoaded = useGetOffersLoadingStatus();
-  const currentOffers = useMemo(() => offers.filter((offer) => offer.city.name === city), [city, offers]);
   const [sortingOption, setSortingOption] = useState<sortOptionsUnion>(SortOffer.Popular);
 
   const [activeOffer, setActiveOffer] = useState<null | Offer>(null);
 
-  const sortedOffers = useMemo(() => SortOffer.sortList(sortingOption, currentOffers), [currentOffers, sortingOption]);
+  const sortedOffers = useMemo(() => {
+    const currentOffers = offers.filter((offer) => offer.city.name === city);
+    return SortOffer.sortList(sortingOption, currentOffers);
+  }, [city, offers, sortingOption]);
 
   return(
     isOffersLoaded ?
@@ -26,12 +28,12 @@ const MainContent = (): JSX.Element => {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{currentOffers.length} places to stay in {city}</b>
+            <b className="places__found">{sortedOffers.length} places to stay in {city}</b>
             <Sort sortingOption={sortingOption} onOptionChange={setSortingOption}/>
             <OfferList setActiveOffer={setActiveOffer} offers={sortedOffers} listType={PlaceType.Cities}/>
           </section>
           <div className="cities__right-section">
-            <Map city={currentOffers[0].city} offers={currentOffers} activeOffer={activeOffer} elementClass={'cities__map'}/>
+            <Map city={sortedOffers[0].city} offers={sortedOffers} activeOffer={activeOffer} elementClass={'cities__map'}/>
           </div>
         </div>
       </div>
