@@ -12,6 +12,7 @@ import { OfferElement } from '../../utils';
 import NearbyContent from '../../components/nearby-content/nearby-content';
 import { useGetOffer, useGetOfferLoadingStatus, useGetReviews, useGetReviewsStatus } from './../../store/property-data/selector';
 import { useGetAuthStatus } from './../../store/user-process/selector';
+import BookmarkButton from './../../components/bookmark-button/bookmark-button';
 
 const Propety = (): JSX.Element => {
   const { id } = useParams();
@@ -64,12 +65,13 @@ const Propety = (): JSX.Element => {
                     <h1 className="property__name">
                       {offer.title}
                     </h1>
-                    <button className="property__bookmark-button button" type="button">
+                    <BookmarkButton id={offer.id} classPrefix='property'/>
+                    {/* <button className="property__bookmark-button button" type="button">
                       <svg className="property__bookmark-icon" width="31" height="33">
                         <use xlinkHref="#icon-bookmark"></use>
                       </svg>
                       <span className="visually-hidden">To bookmarks</span>
-                    </button>
+                    </button> */}
                   </div>
                   <div className="property__rating rating">
                     <div className="property__stars rating__stars">

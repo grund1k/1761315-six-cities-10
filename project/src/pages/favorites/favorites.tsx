@@ -1,15 +1,25 @@
+import { useEffect } from 'react';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
-import { Offers } from '../../types/offer';
+import { fetchFavouriteOffers } from '../../store/api-actions';
+import { useGetFavouriteData } from '../../store/favorites/selector';
+// import { Offers } from '../../types/offer';
 import FavouriteCard from './../../components/favourite-card/favourite-card';
+import { useAppDispatch } from './../../hooks/index';
 
-type FavoritesProps = {
-  offers: Offers;
-}
+// type FavoritesProps = {
+//   offers: Offers;
+// }
 
-const Favorites = ({offers} : FavoritesProps): JSX.Element => {
-  const offersFavorite = offers.filter((offer) => offer.isFavorite);
-  const favoriteOffersCities = [...new Set(offersFavorite.map((offer) => offer.city.name))];
+const Favorites = (): JSX.Element => {
+  const favoriteOffers = useGetFavouriteData();
+  const dispatch = useAppDispatch();
+  // const offersFavorite = offers.filter((offer) => offer.isFavorite);
+  const favoriteOffersCities = [...new Set(favoriteOffers.map((offer) => offer.city.name))];
+
+  useEffect(() => {
+    dispatch(fetchFavouriteOffers());
+  }, [dispatch]);
 
   return(
     <div className="page">
@@ -32,7 +42,7 @@ const Favorites = ({offers} : FavoritesProps): JSX.Element => {
                     </div>
                   </div>
                   <div className="favorites__places">
-                    {offersFavorite
+                    {favoriteOffers
                       .filter((offer) => city === offer.city.name)
                       .map((offer) => <FavouriteCard key={offer.id} offer={offer} />)}
                   </div>

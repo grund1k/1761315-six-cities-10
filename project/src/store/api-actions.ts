@@ -10,6 +10,7 @@ import { Token } from '../services/token';
 import { ReviewFormData } from '../types/review/review-form-data';
 import { ReviewData } from '../types/review/review-data';
 import { Reviews } from '../types/review/reviews';
+import { FavouriteStatusData } from '../types/favourite-status-data';
 
 export const fetchOffersAction = createAsyncThunk<Offers, undefined, {
   dispatch: AppDispatch;
@@ -106,4 +107,28 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     Token.dropToken();
     dispatch(redirectToRoute(AppRoute.Main));
   },
+);
+
+export const fetchFavouriteOffers = createAsyncThunk<Offers, undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'favouriteData/loadFavouriteOffers',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<Offers>(`${APIRoute.Favorites}`);
+    return data;
+  }
+);
+
+export const favouriteAction = createAsyncThunk<void, FavouriteStatusData, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}>(
+  'favouriteData/setFavouriteStatus',
+  async({id, favouriteStatus}, {dispatch, extra: api}) => {
+    await api.post(`${APIRoute.Favorites}/${id}/${favouriteStatus}`);
+    dispatch(fetchFavouriteOffers());
+  }
 );

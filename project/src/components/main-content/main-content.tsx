@@ -23,12 +23,12 @@ const MainContent = (): JSX.Element => {
     return SortOffer.sortList(sortingOption, currentOffers);
   }, [city, offers, sortingOption]);
 
-  if (isOffersLoaded && !currentOffers.length) {
+  if (isOffersLoaded && !sortedOffers.length) {
     return(<MainEmpty />);
   }
 
   return(
-    (isOffersLoaded && currentOffers.length) ?
+    (isOffersLoaded && sortedOffers.length) ?
       <div className="cities">
         <div className="cities__places-container container">
           <section className="cities__places places">
