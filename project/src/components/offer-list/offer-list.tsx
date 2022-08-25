@@ -9,7 +9,6 @@ type OfferListProps = {
 }
 
 const OfferList = ({offers, listType, setActiveOffer} : OfferListProps) => {
-
   const onMouseOver = (offer : Offer) => setActiveOffer(offer);
 
   return (

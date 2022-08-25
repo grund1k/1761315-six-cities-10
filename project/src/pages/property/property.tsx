@@ -1,28 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Offer } from '../../types/offer';
-import {AuthStatus, PlaceType} from '../../const';
+import {AuthStatus} from '../../const';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewList from '../../components/reviews-list/review-list';
-import OfferList from '../../components/offer-list/offer-list';
-import Map from '../../components/map/map';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
-import { useAppSelector } from '../../hooks';
 import { useAppDispatch } from './../../hooks/index';
-import { fetchNearbyOffers, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
+import { fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import LoadSpinner from '../../components/load-spinner/load-spinner';
+import { OfferElement } from '../../utils';
+import NearbyContent from '../../components/nearby-content/nearby-content';
+import { useGetOffer, useGetOfferLoadingStatus, useGetReviews, useGetReviewsStatus } from './../../store/property-data/selector';
+import { useGetAuthStatus } from './../../store/user-process/selector';
 
 const Propety = (): JSX.Element => {
   const { id } = useParams();
   const currentId = Number(id);
-  const [activeOffer, setActiveOffer] = useState<null | Offer>(null);
-  const {offer, isOffersLoaded, nearbyOffers, reviews, authorizationStatus} = useAppSelector((state) => state);
+  const offer = useGetOffer();
+  const isOfferLoaded = useGetOfferLoadingStatus();
+  const authorizationStatus = useGetAuthStatus();
+  const reviews = useGetReviews();
+  const isReviewsLoaded = useGetReviewsStatus();
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchOfferAction(currentId));
-    dispatch(fetchNearbyOffers(currentId));
     dispatch(fetchReviewsAction(currentId));
   }, [currentId, dispatch]);
 
@@ -40,7 +43,7 @@ const Propety = (): JSX.Element => {
       </Header>
 
       <main className="page__main page__main--property">
-        {offer && isOffersLoaded ?
+        {offer && isOfferLoaded ?
           <>
             <section className="property">
               <div className="property__gallery-container container">
@@ -55,10 +58,7 @@ const Propety = (): JSX.Element => {
               <div className="property__container container">
                 <div className="property__wrapper">
                   <div className="property__mark">
-                    {offer.isPremium ?
-                      <div className="place-card__mark">
-                        <span>Premium</span>
-                      </div> : null}
+                    {OfferElement.isPremium(offer, 'property')}
                   </div>
                   <div className="property__name-wrapper">
                     <h1 className="property__name">
@@ -73,7 +73,7 @@ const Propety = (): JSX.Element => {
                   </div>
                   <div className="property__rating rating">
                     <div className="property__stars rating__stars">
-                      <span style={{width: '80%'}}></span>
+                      <span style={{width: OfferElement.setRatingWidth(offer)}}></span>
                       <span className="visually-hidden">Rating</span>
                     </div>
                     <span className="property__rating-value rating__value">{offer.rating}</span>
@@ -125,7 +125,7 @@ const Propety = (): JSX.Element => {
                   </div>
                   <section className="property__reviews reviews">
                     <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                    {reviews.length !== 0 ?
+                    {reviews.length !== 0 && isReviewsLoaded ?
                       <ReviewList reviews={reviews}/>
                       :
                       <LoadSpinner />}
@@ -136,20 +136,8 @@ const Propety = (): JSX.Element => {
                   </section>
                 </div>
               </div>
-              {nearbyOffers.length !== 0 ?
-                <Map city={nearbyOffers[0].city} offers={nearbyOffers} activeOffer={activeOffer} elementClass={'property__map'}/>
-                :
-                <LoadSpinner />}
             </section>
-            <div className="container">
-              <section className="near-places places">
-                <h2 className="near-places__title">Other places in the neighbourhood</h2>
-                {nearbyOffers.length !== 0 ?
-                  <OfferList setActiveOffer={setActiveOffer} offers={nearbyOffers} listType={PlaceType.NearPlaces} />
-                  :
-                  <LoadSpinner />}
-              </section>
-            </div>
+            <NearbyContent currentId={currentId} />
           </>
           :
           <div className="container">

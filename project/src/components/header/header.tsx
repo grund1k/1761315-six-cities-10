@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
@@ -29,4 +30,4 @@ const Header = ({children}: Props ):JSX.Element => {
   );
 };
 
-export default Header;
+export default memo(Header);

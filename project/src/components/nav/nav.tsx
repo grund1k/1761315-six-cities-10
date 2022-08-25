@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthStatus } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { useGetAuthStatus } from './../../store/user-process/selector';
 
 const Nav = ():JSX.Element => {
-  const { authorizationStatus } = useAppSelector((state) => state);
+  const authorizationStatus = useGetAuthStatus();
 
   return(
     <nav className="header__nav">

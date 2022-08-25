@@ -1,14 +1,15 @@
 
-import { useAppDispatch, useAppSelector } from './../../hooks/index';
-import { changeCity } from './../../store/action';
+import { useAppDispatch} from './../../hooks/index';
 import {Cities} from '../../const';
+import { useGetCity } from '../../store/city/selector';
+import { changeCity } from '../../store/city/city-process';
 
 type Props = {
   cities: Cities;
 }
 
 const CitiesList = ({cities}: Props): JSX.Element => {
-  const selectedCity = useAppSelector((state) => state.city);
+  const selectedCity = useGetCity();
   const dispatch = useAppDispatch();
 
   const handleSelectCity = (name: string) => {

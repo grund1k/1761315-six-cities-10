@@ -6,17 +6,20 @@ import Favorites from './../../pages/favorites/favorites';
 import Property from '../../pages/property/property';
 import Error404 from '../../pages/error404/error404';
 import PrivateRoute from '../../components/private-router/private-route';
-import { useAppSelector } from '../../hooks';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import Logout from '../logout/logout';
+import { useGetAuthStatus } from './../../store/user-process/selector';
+import { useGetMainData } from './../../store/data/selector';
 
 type Props = {
   cities: Cities;
 }
 
 const App = ({ cities}: Props): JSX.Element => {
-  const {authorizationStatus, offers} = useAppSelector((state) => state); // Пока остается временно для Property
+  const authorizationStatus = useGetAuthStatus();
+  const offers = useGetMainData(); // Пока остается временно для Favourite
+
   return(
     <HistoryRouter history={browserHistory}>
       <Routes>
