@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SortOffer } from '../../utils';
+import { OfferSorting } from '../../utils';
 import {sortOptionsUnion} from '../../const';
 
 type Props = {
@@ -20,7 +20,7 @@ const Sort = ({sortingOption, onOptionChange} : Props): JSX.Element => {
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${optionsState ? 'places__options--opened' : ''}`}>
-        {SortOffer.options.map((option) => (
+        {OfferSorting.options.map((option) => (
           <li key={option}
             className={`places__option ${sortingOption === option ? 'places__option--active' : ''}`}
             tabIndex={0}

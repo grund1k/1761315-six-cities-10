@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { PlaceType, sortOptionsUnion } from '../../const';
 import { Offer } from '../../types/offer';
-import { SortOffer } from '../../utils';
+import { OfferSorting } from '../../utils';
 import LoadSpinner from '../load-spinner/load-spinner';
 import OfferList from '../offer-list/offer-list';
 import Sort from '../sort/sort';
@@ -14,13 +14,13 @@ const MainContent = (): JSX.Element => {
   const city = useGetCity();
   const offers = useGetMainData();
   const isOffersLoaded = useGetOffersLoadingStatus();
-  const [sortingOption, setSortingOption] = useState<sortOptionsUnion>(SortOffer.Popular);
+  const [sortingOption, setSortingOption] = useState<sortOptionsUnion>(OfferSorting.Popular);
 
   const [activeOffer, setActiveOffer] = useState<null | Offer>(null);
 
   const sortedOffers = useMemo(() => {
     const currentOffers = offers.filter((offer) => offer.city.name === city);
-    return SortOffer.sortList(sortingOption, currentOffers);
+    return OfferSorting.sortList(sortingOption, currentOffers);
   }, [city, offers, sortingOption]);
 
   if (isOffersLoaded && !sortedOffers.length) {

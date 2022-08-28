@@ -10,7 +10,6 @@ import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import Logout from '../logout/logout';
 import { useGetAuthStatus } from './../../store/user-process/selector';
-// import { useGetFavouriteData } from '../../store/favorites/selector';
 
 type Props = {
   cities: Cities;
