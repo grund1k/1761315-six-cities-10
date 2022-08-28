@@ -1,12 +1,23 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import Header from '../../components/header/header';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
 import { setFormError } from '../../utils';
 import { useAppDispatch } from './../../hooks/index';
-import { PatternErrors } from './../../const';
+import { AppRoute, AuthStatus, PatternErrors } from './../../const';
+import { useNavigate } from 'react-router-dom';
+import { useGetAuthStatus } from '../../store/user-process/selector';
 
 const Login = (): JSX.Element => {
+  const navigate = useNavigate();
+  const authorizationStatus = useGetAuthStatus();
+
+  useEffect(() => {
+    if (authorizationStatus === AuthStatus.Auth) {
+      navigate(AppRoute.Main);
+    }
+  },[authorizationStatus, navigate]);
+
   const [authData, setAuthData] = useState<AuthData>({ login: '', password: '' });
 
   const dispatch = useAppDispatch();

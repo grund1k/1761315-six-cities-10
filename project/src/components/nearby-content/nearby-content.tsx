@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { useAppDispatch } from '../../hooks';
 import { fetchNearbyOffers } from '../../store/api-actions';
-import { Offer } from '../../types/offer';
 import Map from '../../components/map/map';
 import LoadSpinner from '../load-spinner/load-spinner';
 import OfferList from '../offer-list/offer-list';
@@ -13,7 +12,6 @@ type Props = {
 }
 
 const NearbyContent = ({currentId} : Props): JSX.Element => {
-  const [activeOffer, setActiveOffer] = useState<null | Offer>(null);
   const nearbyOffers = useGetNearbyOffers();
   const dispatch = useAppDispatch();
 
@@ -24,14 +22,14 @@ const NearbyContent = ({currentId} : Props): JSX.Element => {
   return(
     <>
       {nearbyOffers.length !== 0 ?
-        <Map city={nearbyOffers[0].city} offers={nearbyOffers} activeOffer={activeOffer} elementClass={'property__map'}/>
+        <Map city={nearbyOffers[0].city} offers={nearbyOffers} elementClass={'property__map'}/>
         :
         <LoadSpinner />}
       <div className="container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           {nearbyOffers.length !== 0 ?
-            <OfferList setActiveOffer={setActiveOffer} offers={nearbyOffers} listType={PlaceType.NearPlaces} />
+            <OfferList offers={nearbyOffers} listType={PlaceType.NearPlaces} />
             :
             <LoadSpinner />}
         </section>

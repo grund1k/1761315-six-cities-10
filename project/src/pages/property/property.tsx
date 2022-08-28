@@ -66,12 +66,6 @@ const Propety = (): JSX.Element => {
                       {offer.title}
                     </h1>
                     <BookmarkButton id={offer.id} classPrefix='property'/>
-                    {/* <button className="property__bookmark-button button" type="button">
-                      <svg className="property__bookmark-icon" width="31" height="33">
-                        <use xlinkHref="#icon-bookmark"></use>
-                      </svg>
-                      <span className="visually-hidden">To bookmarks</span>
-                    </button> */}
                   </div>
                   <div className="property__rating rating">
                     <div className="property__stars rating__stars">

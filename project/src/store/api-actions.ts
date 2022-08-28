@@ -61,13 +61,16 @@ export const fetchReviewsAction = createAsyncThunk<Reviews, number, {
 );
 
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<string, undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }>(
   'user/checkAuth',
-  async (_arg, {dispatch, extra: api}) => await api.get(APIRoute.Login),
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get(APIRoute.Login);
+    return data.email;
+  },
 );
 
 export const postReviewAction = createAsyncThunk<void, ReviewData, {

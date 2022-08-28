@@ -4,7 +4,8 @@ import { Offer, Offers } from './offer';
 import { Reviews } from './review/reviews';
 
 export type UserProcess = {
-  authStatus: AuthStatus
+  authStatus: AuthStatus,
+  email: string
 };
 
 export type MainData = {
