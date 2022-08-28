@@ -6,13 +6,16 @@ import LoadSpinner from '../load-spinner/load-spinner';
 import OfferList from '../offer-list/offer-list';
 import { PlaceType } from '../../const';
 import { useGetNearbyOffers } from '../../store/property-data/selector';
+import { Offer } from '../../types/offer';
 
 type Props = {
+  activeOffer: Offer;
   currentId: number;
 }
 
-const NearbyContent = ({currentId} : Props): JSX.Element => {
+const NearbyContent = ({currentId, activeOffer} : Props): JSX.Element => {
   const nearbyOffers = useGetNearbyOffers();
+  const offers = [...nearbyOffers, activeOffer];
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -22,7 +25,7 @@ const NearbyContent = ({currentId} : Props): JSX.Element => {
   return(
     <>
       {nearbyOffers.length !== 0 ?
-        <Map city={nearbyOffers[0].city} offers={nearbyOffers} elementClass={'property__map'}/>
+        <Map city={nearbyOffers[0].city} activeOffer={activeOffer} offers={offers} elementClass={'property__map'}/>
         :
         <LoadSpinner />}
       <div className="container">

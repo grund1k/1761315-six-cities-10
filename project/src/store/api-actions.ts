@@ -86,7 +86,7 @@ export const postReviewAction = createAsyncThunk<void, ReviewData, {
 );
 
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<string, AuthData, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -96,6 +96,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     const {data: { token }} = await api.post<UserData>(APIRoute.Login, {email, password});
     Token.saveToken(token);
     dispatch(redirectToRoute(AppRoute.Main));
+    return email;
   },
 );
 

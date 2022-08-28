@@ -9,7 +9,7 @@ type MapProps = {
   city: City;
   offers: Offers;
   elementClass: string;
-  activeOffer?: Offer | null;
+  activeOffer: Offer | null;
 }
 
 const defaultCustomIcon = new Icon({

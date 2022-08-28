@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { PropertyData } from '../../types/store';
-import { fetchNearbyOffers, fetchOfferAction, fetchReviewsAction } from '../api-actions';
+import { fetchNearbyOffers, fetchOfferAction, fetchReviewsAction, postReviewAction } from '../api-actions';
 
 const initialState: PropertyData = {
   offer: null,
@@ -10,6 +10,7 @@ const initialState: PropertyData = {
   isNearbyOffersLoaded: false,
   reviews: [],
   isReviewsLoaded: false,
+  isReviewFormPending: false,
 };
 
 
@@ -39,6 +40,15 @@ export const propertyData = createSlice({
       })
       .addCase(fetchReviewsAction.pending, (state) => {
         state.isReviewsLoaded = false;
+      })
+      .addCase(postReviewAction.pending, (state) => {
+        state.isReviewFormPending = true;
+      })
+      .addCase(postReviewAction.fulfilled, (state) => {
+        state.isReviewFormPending = false;
+      })
+      .addCase(postReviewAction.rejected, (state) => {
+        state.isReviewFormPending = false;
       });
   }
 });

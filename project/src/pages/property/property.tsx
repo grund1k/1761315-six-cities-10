@@ -49,7 +49,7 @@ const Propety = (): JSX.Element => {
             <section className="property">
               <div className="property__gallery-container container">
                 <div className="property__gallery">
-                  {offer.images.map((image) => (
+                  {offer.images.slice(0, 6).map((image) => (
                     <div key={image} className="property__image-wrapper">
                       <img className="property__image" src={image} alt="Photo studio" />
                     </div>
@@ -58,9 +58,7 @@ const Propety = (): JSX.Element => {
               </div>
               <div className="property__container container">
                 <div className="property__wrapper">
-                  <div className="property__mark">
-                    {OfferElement.isPremium(offer, 'property')}
-                  </div>
+                  {OfferElement.isPremium(offer, 'property')}
                   <div className="property__name-wrapper">
                     <h1 className="property__name">
                       {offer.title}
@@ -133,7 +131,7 @@ const Propety = (): JSX.Element => {
                 </div>
               </div>
             </section>
-            <NearbyContent currentId={currentId} />
+            <NearbyContent currentId={currentId} activeOffer={offer}/>
           </>
           :
           <div className="container">

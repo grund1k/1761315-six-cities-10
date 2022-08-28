@@ -20,6 +20,7 @@ export type PropertyData = {
   isNearbyOffersLoaded: boolean,
   reviews: Reviews | [],
   isReviewsLoaded: boolean,
+  isReviewFormPending: boolean,
 }
 
 export type City = {

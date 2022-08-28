@@ -75,7 +75,7 @@ export const setFormError = (node: HTMLInputElement | HTMLTextAreaElement, patte
     }
   }
   node.reportValidity();
-  return node;
+  return node.validity.valid;
 };
 
 export class OfferElement {
