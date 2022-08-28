@@ -5,7 +5,7 @@ import { AuthData } from '../../types/auth-data';
 import { setFormError } from '../../utils';
 import { useAppDispatch } from './../../hooks/index';
 import { AppRoute, AuthStatus, PatternErrors } from './../../const';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useGetAuthStatus } from '../../store/user-process/selector';
 
 const Login = (): JSX.Element => {
@@ -59,9 +59,9 @@ const Login = (): JSX.Element => {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <Link className="locations__item-link" to='#amsterdam'>
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

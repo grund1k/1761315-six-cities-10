@@ -14,9 +14,7 @@ const PlaceCard = ({offer, onMouseOver, listType} : PlaceCardProps) :JSX.Element
   <article className={`${listType}__card place-card`} onMouseOver={() => onMouseOver ? onMouseOver(offer) : null}>
     {OfferElement.isPremium(offer, 'place-card')}
     <div className={`${listType}__image-wrapper place-card__image-wrapper`}>
-      <a href="#">
-        <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt={offer.title} />
-      </a>
+      <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt={offer.title} />
     </div>
     <div className="place-card__info">
       <div className="place-card__price-wrapper">

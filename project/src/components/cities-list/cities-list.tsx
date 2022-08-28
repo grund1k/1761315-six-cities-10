@@ -20,7 +20,7 @@ const CitiesList = ({cities}: Props): JSX.Element => {
     <ul className="locations__list tabs__list">
       {cities.map((city) => (
         <li key={city} className="locations__item" onClick={() => handleSelectCity(city)}>
-          <a className={`locations__item-link tabs__item ${selectedCity === city ? 'tabs__item--active' : ''}`} href="#">
+          <a className={`locations__item-link tabs__item ${selectedCity === city ? 'tabs__item--active' : ''}`} href={`#${city}`}>
             <span>{city}</span>
           </a>
         </li>

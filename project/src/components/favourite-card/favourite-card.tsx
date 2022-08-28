@@ -14,9 +14,9 @@ const FavouriteCard = ({offer}:FavoriteCardProp) :JSX.Element => (
         <span>Premium</span>
       </div> : null}
     <div className="favorites__image-wrapper place-card__image-wrapper">
-      <a href="#">
+      <Link to={`${AppRoute.Room}/${offer.id}`}>
         <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt={offer.title} />
-      </a>
+      </Link>
     </div>
     <div className="place-card__info">
       <div className="place-card__price-wrapper">

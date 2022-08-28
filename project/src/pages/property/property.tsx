@@ -51,7 +51,7 @@ const Propety = (): JSX.Element => {
                 <div className="property__gallery">
                   {offer.images.slice(0, 6).map((image) => (
                     <div key={image} className="property__image-wrapper">
-                      <img className="property__image" src={image} alt="Photo studio" />
+                      <img className="property__image" src={image} alt={offer.title} />
                     </div>
                   ))}
                 </div>

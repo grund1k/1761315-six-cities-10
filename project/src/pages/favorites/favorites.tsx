@@ -6,6 +6,7 @@ import { fetchFavouriteOffers } from '../../store/api-actions';
 import { useGetFavouriteData } from '../../store/favorites/selector';
 import FavouriteCard from './../../components/favourite-card/favourite-card';
 import { useAppDispatch } from './../../hooks/index';
+import { Link } from 'react-router-dom';
 
 const Favorites = (): JSX.Element => {
   const favoriteOffers = useGetFavouriteData();
@@ -32,9 +33,9 @@ const Favorites = (): JSX.Element => {
                   <li key={city} className="favorites__locations-items">
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
-                        <a className="locations__item-link" href="#">
+                        <Link className="locations__item-link" to={`#${city}`}>
                           <span>{city}</span>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div className="favorites__places">
