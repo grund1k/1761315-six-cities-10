@@ -78,3 +78,10 @@ export enum NameSpace {
   City = 'City',
   FavouritesData = 'FavouritesData'
 }
+
+export enum FetchStatus {
+  Idle = 'idle',
+  Rejected = 'rejected',
+  Success = 'success',
+  Pending = 'pending'
+}

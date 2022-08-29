@@ -30,6 +30,7 @@ export type City = {
 export type FavouriteData = {
   favouriteOffers: Offers;
   isFavouriteOffersLoaded: boolean;
+  status: string;
 }
 
 export type State = ReturnType<typeof store.getState>;

@@ -1,17 +1,12 @@
-import { useEffect, useMemo } from 'react';
-import FavouriteEmpty from '../../components/favourite-empty/favourite-emty';
+import { useEffect } from 'react';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
+import FavoriteContent from '../../components/favourite-content/favourite-content';
 import { fetchFavouriteOffers } from '../../store/api-actions';
-import { useGetFavouriteData } from '../../store/favorites/selector';
-import FavouriteCard from './../../components/favourite-card/favourite-card';
-import { useAppDispatch } from './../../hooks/index';
-import { Link } from 'react-router-dom';
+import { useAppDispatch } from '../../hooks';
 
 const Favorites = (): JSX.Element => {
-  const favoriteOffers = useGetFavouriteData();
   const dispatch = useAppDispatch();
-  const favoriteOffersCities = useMemo(() => [...new Set(favoriteOffers.map((offer) => offer.city.name))], [favoriteOffers]);
 
   useEffect(() => {
     dispatch(fetchFavouriteOffers());
@@ -25,30 +20,7 @@ const Favorites = (): JSX.Element => {
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          {favoriteOffers.length > 0 ?
-            <section className="favorites">
-              <h1 className="favorites__title">Saved listing</h1>
-              <ul className="favorites__list">
-                {favoriteOffersCities.map((city) =>(
-                  <li key={city} className="favorites__locations-items">
-                    <div className="favorites__locations locations locations--current">
-                      <div className="locations__item">
-                        <Link className="locations__item-link" to={`#${city}`}>
-                          <span>{city}</span>
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="favorites__places">
-                      {favoriteOffers
-                        .filter((offer) => city === offer.city.name)
-                        .map((offer) => <FavouriteCard key={offer.id} offer={offer} />)}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </section>
-            :
-            <FavouriteEmpty />}
+          <FavoriteContent />
         </div>
       </main>
 
