@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import FavouriteEmpty from '../../components/favourite-empty/favourite-emty';
 import Header from '../../components/header/header';
 import Nav from '../../components/nav/nav';
@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 const Favorites = (): JSX.Element => {
   const favoriteOffers = useGetFavouriteData();
   const dispatch = useAppDispatch();
-  const favoriteOffersCities = [...new Set(favoriteOffers.map((offer) => offer.city.name))];
+  const favoriteOffersCities = useMemo(() => [...new Set(favoriteOffers.map((offer) => offer.city.name))], [favoriteOffers]);
 
   useEffect(() => {
     dispatch(fetchFavouriteOffers());

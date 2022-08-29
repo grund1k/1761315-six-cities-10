@@ -6,12 +6,12 @@ import BookmarkButton from '../bookmark-button/bookmark-button';
 
 type PlaceCardProps = {
   offer : Offer;
-  onMouseOver?: (offer: Offer) => void;
+  handelOnMouseOver?: (offer: Offer) => void;
   listType: string;
 }
 
-const PlaceCard = ({offer, onMouseOver, listType} : PlaceCardProps) :JSX.Element => (
-  <article className={`${listType}__card place-card`} onMouseOver={() => onMouseOver ? onMouseOver(offer) : null}>
+const PlaceCard = ({offer, handelOnMouseOver, listType} : PlaceCardProps) :JSX.Element => (
+  <article className={`${listType}__card place-card`} onMouseOver={() => handelOnMouseOver ? handelOnMouseOver(offer) : null}>
     {OfferElement.isPremium(offer, 'place-card')}
     <div className={`${listType}__image-wrapper place-card__image-wrapper`}>
       <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt={offer.title} />

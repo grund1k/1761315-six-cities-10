@@ -17,7 +17,7 @@ const BookmarkButton = ({id, classPrefix}: Props) : JSX.Element => {
   const favoriteList = useGetFavouriteData();
 
   const isAuthorized = authorizationStatus === AuthStatus.Auth;
-  const isFavorite = !!favoriteList.find((item) => item.id === id) || false;
+  const isFavorite = favoriteList.some((item) => item.id === id);
 
 
   function handleClick() {
