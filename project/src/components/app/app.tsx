@@ -10,7 +10,6 @@ import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import Logout from '../logout/logout';
 import { useGetAuthStatus } from './../../store/user-process/selector';
-import { useGetMainData } from './../../store/data/selector';
 
 type Props = {
   cities: Cities;
@@ -18,14 +17,13 @@ type Props = {
 
 const App = ({ cities}: Props): JSX.Element => {
   const authorizationStatus = useGetAuthStatus();
-  const offers = useGetMainData(); // Пока остается временно для Favourite
 
   return(
     <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Main} element={<Main cities={cities}/>} />
         <Route path={AppRoute.Login} element={<Login />} />
-        <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={authorizationStatus}><Favorites offers={offers} /></PrivateRoute>} />
+        <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={authorizationStatus}><Favorites /></PrivateRoute>} />
         <Route path={`${AppRoute.Room}/:id`} element={<Property/>} />
         <Route path={AppRoute.Logout} element={<Logout />}/>
         <Route path='*' element={<Error404 />} />

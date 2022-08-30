@@ -4,7 +4,8 @@ import { Offer, Offers } from './offer';
 import { Reviews } from './review/reviews';
 
 export type UserProcess = {
-  authStatus: AuthStatus
+  authStatus: AuthStatus,
+  email: string
 };
 
 export type MainData = {
@@ -19,10 +20,17 @@ export type PropertyData = {
   isNearbyOffersLoaded: boolean,
   reviews: Reviews | [],
   isReviewsLoaded: boolean,
+  isReviewFormPending: boolean,
 }
 
 export type City = {
   city: string;
+}
+
+export type FavouriteData = {
+  favouriteOffers: Offers;
+  isFavouriteOffersLoaded: boolean;
+  status: string;
 }
 
 export type State = ReturnType<typeof store.getState>;

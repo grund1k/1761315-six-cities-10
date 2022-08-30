@@ -58,7 +58,8 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Nearby = '/nearby',
-  Comments = '/comments'
+  Comments = '/comments',
+  Favorites = '/favorite'
 }
 
 export const patternErrors = ['Проверьте корректность введенного адреса электронной почты'] as const;
@@ -75,4 +76,12 @@ export enum NameSpace {
   MainData = 'MainData',
   PropertyData = 'PropertyData',
   City = 'City',
+  FavouritesData = 'FavouritesData'
+}
+
+export enum FetchStatus {
+  Idle = 'idle',
+  Rejected = 'rejected',
+  Success = 'success',
+  Pending = 'pending'
 }

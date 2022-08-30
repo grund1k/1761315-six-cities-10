@@ -1,14 +1,14 @@
 import { Offer, Offers } from './types/offer';
 import { sortOptions, sortOptionsUnion, STAR_WIDTH } from './const';
 
-export class SortOffer {
+export class OfferSorting {
   static options = sortOptions;
 
   static Popular = sortOptions[0];
   static PriceUp = sortOptions[1];
   static PriceDown = sortOptions[2];
   static TopRated = sortOptions[3];
-  static defaultValue = SortOffer.Popular;
+  static defaultValue = OfferSorting.Popular;
 
   static sortByPriceDown(offerA: Offer, offerB: Offer) {
     return offerB.price - offerA.price;
@@ -24,14 +24,14 @@ export class SortOffer {
 
   static sortList(key: sortOptionsUnion, offers: Offers): Offers {
     switch(key) {
-      case SortOffer.Popular :
+      case OfferSorting.Popular :
         return offers;
-      case SortOffer.PriceDown :
-        return [...offers].sort(SortOffer.sortByPriceDown);
-      case SortOffer.PriceUp :
-        return [...offers].sort(SortOffer.sortByPriceUp);
-      case SortOffer.TopRated :
-        return [...offers].sort(SortOffer.sortBuyRating);
+      case OfferSorting.PriceDown :
+        return [...offers].sort(OfferSorting.sortByPriceDown);
+      case OfferSorting.PriceUp :
+        return [...offers].sort(OfferSorting.sortByPriceUp);
+      case OfferSorting.TopRated :
+        return [...offers].sort(OfferSorting.sortBuyRating);
       default :
         return offers;
     }
@@ -75,7 +75,7 @@ export const setFormError = (node: HTMLInputElement | HTMLTextAreaElement, patte
     }
   }
   node.reportValidity();
-  return node;
+  return node.validity.valid;
 };
 
 export class OfferElement {

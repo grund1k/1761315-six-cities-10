@@ -12,6 +12,7 @@ import { OfferElement } from '../../utils';
 import NearbyContent from '../../components/nearby-content/nearby-content';
 import { useGetOffer, useGetOfferLoadingStatus, useGetReviews, useGetReviewsStatus } from './../../store/property-data/selector';
 import { useGetAuthStatus } from './../../store/user-process/selector';
+import BookmarkButton from './../../components/bookmark-button/bookmark-button';
 
 const Propety = (): JSX.Element => {
   const { id } = useParams();
@@ -48,28 +49,21 @@ const Propety = (): JSX.Element => {
             <section className="property">
               <div className="property__gallery-container container">
                 <div className="property__gallery">
-                  {offer.images.map((image) => (
+                  {offer.images.slice(0, 6).map((image) => (
                     <div key={image} className="property__image-wrapper">
-                      <img className="property__image" src={image} alt="Photo studio" />
+                      <img className="property__image" src={image} alt={offer.title} />
                     </div>
                   ))}
                 </div>
               </div>
               <div className="property__container container">
                 <div className="property__wrapper">
-                  <div className="property__mark">
-                    {OfferElement.isPremium(offer, 'property')}
-                  </div>
+                  {OfferElement.isPremium(offer, 'property')}
                   <div className="property__name-wrapper">
                     <h1 className="property__name">
                       {offer.title}
                     </h1>
-                    <button className="property__bookmark-button button" type="button">
-                      <svg className="property__bookmark-icon" width="31" height="33">
-                        <use xlinkHref="#icon-bookmark"></use>
-                      </svg>
-                      <span className="visually-hidden">To bookmarks</span>
-                    </button>
+                    <BookmarkButton id={offer.id} classPrefix='property'/>
                   </div>
                   <div className="property__rating rating">
                     <div className="property__stars rating__stars">
@@ -137,7 +131,7 @@ const Propety = (): JSX.Element => {
                 </div>
               </div>
             </section>
-            <NearbyContent currentId={currentId} />
+            <NearbyContent currentId={currentId} activeOffer={offer}/>
           </>
           :
           <div className="container">

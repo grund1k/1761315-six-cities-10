@@ -4,17 +4,22 @@ import { BACKEND_URL } from '../../services/api';
 import { postReviewAction } from '../../store/api-actions';
 import { useAppDispatch } from './../../hooks/index';
 import { setFormError } from '../../utils';
+import { useGetPendingStatus } from '../../store/property-data/selector';
 
 type Props = {
   id: number;
 };
 
+const initialCommentState = {
+  rating: 0,
+  comment: '',
+};
+
 const ReviewForm = ({id}: Props): JSX.Element => {
+
   const dispatch = useAppDispatch();
-  const [comment, setComment] = useState({
-    rating: 0,
-    comment: '',
-  });
+  const [comment, setComment] = useState(initialCommentState);
+  const isFormPending = useGetPendingStatus();
 
   const handelReviewForm = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
@@ -26,7 +31,11 @@ const ReviewForm = ({id}: Props): JSX.Element => {
     evt.preventDefault();
 
     dispatch(postReviewAction({id, comment}));
+    setComment(initialCommentState);
   };
+
+  const isCommentValid = comment.comment.length >= 50 && comment.comment.length < 300;
+  const isSubmitAvailable = ( comment.rating > 0 && isCommentValid) || isFormPending;
 
   return(
     <form className="reviews__form form" action={`${BACKEND_URL}${APIRoute.Comments}/${id}`} method="post" onSubmit={handelReviewSubmit}>
@@ -72,7 +81,7 @@ const ReviewForm = ({id}: Props): JSX.Element => {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit">Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isSubmitAvailable}>Submit</button>
       </div>
     </form>
   );
